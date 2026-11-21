@@ -36,7 +36,7 @@ export function ActivityTimeline({
   return (
     <section aria-label={UI_MESSAGES.DASHBOARD.ROUTINE_SECTION_TITLE}>
       <div className="mb-4 flex items-center justify-between gap-3">
-        <h2 className="font-display text-lg font-extrabold text-slate-900 sm:text-xl">
+        <h2 className="font-display text-lg font-extrabold text-content sm:text-xl">
           {UI_MESSAGES.DASHBOARD.ROUTINE_SECTION_TITLE}
         </h2>
 
@@ -45,7 +45,7 @@ export function ActivityTimeline({
             <button
               type="button"
               onClick={onOpenReorder}
-              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-emerald-700 transition-colors hover:bg-emerald-50"
+              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-brand transition-colors hover:bg-brand/10"
             >
               <span>{UI_MESSAGES.DASHBOARD.REORDER_BUTTON}</span>
               <ArrowUpDown className="h-4 w-4" />
@@ -55,7 +55,7 @@ export function ActivityTimeline({
           <button
             type="button"
             onClick={onAdd}
-            className="btn hidden min-h-[42px] rounded-xl border-none bg-slate-900 px-4 text-sm font-semibold text-white hover:bg-slate-800 lg:inline-flex"
+            className="btn hidden min-h-[42px] rounded-xl border-none bg-neutral px-4 text-sm font-semibold text-neutral-content hover:bg-neutral lg:inline-flex"
           >
             <Plus className="h-4 w-4" />
             <span>{UI_MESSAGES.DASHBOARD.ADD_BUTTON}</span>

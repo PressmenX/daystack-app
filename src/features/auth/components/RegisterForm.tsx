@@ -35,15 +35,15 @@ export function RegisterForm() {
       subtitle={UI_MESSAGES.AUTH.REGISTER_SUBTITLE}
     >
       {authError ? (
-        <div role="alert" className="alert alert-error mb-5 rounded-2xl border border-rose-200 bg-rose-50 text-rose-900">
-          <AlertCircle className="h-5 w-5 shrink-0 text-rose-600" />
+        <div role="alert" className="alert alert-error mb-5 rounded-2xl border border-danger/20 bg-danger-soft text-danger">
+          <AlertCircle className="h-5 w-5 shrink-0 text-danger" />
           <span className="text-sm font-medium">{authError}</span>
         </div>
       ) : null}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         <div>
-          <label htmlFor="register-name" className="mb-1.5 block text-sm font-semibold text-slate-700">
+          <label htmlFor="register-name" className="mb-1.5 block text-sm font-semibold text-content-secondary">
             {UI_MESSAGES.AUTH.NAME_LABEL}
           </label>
           <input
@@ -52,13 +52,13 @@ export function RegisterForm() {
             autoComplete="name"
             maxLength={MAX_USER_NAME_LENGTH}
             placeholder={UI_MESSAGES.AUTH.NAME_PLACEHOLDER}
-            className="input input-bordered min-h-[46px] w-full rounded-xl border-slate-200 bg-slate-50/70 text-sm text-slate-900 focus:border-emerald-600 focus:bg-white focus:outline-none"
+            className="input input-bordered min-h-[46px] w-full rounded-xl border-border bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
             {...register('name', { onChange: clearAuthError })}
           />
         </div>
 
         <div>
-          <label htmlFor="register-email" className="mb-1.5 block text-sm font-semibold text-slate-700">
+          <label htmlFor="register-email" className="mb-1.5 block text-sm font-semibold text-content-secondary">
             {UI_MESSAGES.AUTH.EMAIL_LABEL}
           </label>
           <input
@@ -66,8 +66,8 @@ export function RegisterForm() {
             type="email"
             autoComplete="email"
             placeholder={UI_MESSAGES.AUTH.EMAIL_PLACEHOLDER}
-            className={`input input-bordered min-h-[46px] w-full rounded-xl bg-slate-50/70 text-sm text-slate-900 focus:border-emerald-600 focus:bg-white focus:outline-none ${
-              errors.email ? 'border-rose-400' : 'border-slate-200'
+            className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+              errors.email ? 'border-danger' : 'border-border'
             }`}
             {...register('email', {
               required: UI_MESSAGES.AUTH.EMAIL_REQUIRED,
@@ -79,12 +79,12 @@ export function RegisterForm() {
             })}
           />
           {errors.email ? (
-            <p className="mt-1 text-xs font-medium text-rose-600">{errors.email.message}</p>
+            <p className="mt-1 text-xs font-medium text-danger">{errors.email.message}</p>
           ) : null}
         </div>
 
         <div>
-          <label htmlFor="register-password" className="mb-1.5 block text-sm font-semibold text-slate-700">
+          <label htmlFor="register-password" className="mb-1.5 block text-sm font-semibold text-content-secondary">
             {UI_MESSAGES.AUTH.PASSWORD_LABEL}
           </label>
           <div className="relative">
@@ -93,8 +93,8 @@ export function RegisterForm() {
               type={showPassword ? 'text' : 'password'}
               autoComplete="new-password"
               placeholder={UI_MESSAGES.AUTH.PASSWORD_PLACEHOLDER}
-              className={`input input-bordered min-h-[46px] w-full rounded-xl bg-slate-50/70 pr-12 text-sm text-slate-900 focus:border-emerald-600 focus:bg-white focus:outline-none ${
-                errors.password ? 'border-rose-400' : 'border-slate-200'
+              className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 pr-12 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+                errors.password ? 'border-danger' : 'border-border'
               }`}
               {...register('password', {
                 required: UI_MESSAGES.AUTH.PASSWORD_REQUIRED,
@@ -109,32 +109,32 @@ export function RegisterForm() {
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
               aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Lihat kata sandi'}
-              className="absolute right-1 top-1/2 flex min-h-[40px] min-w-[40px] -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 hover:text-slate-600"
+              className="absolute right-1 top-1/2 flex min-h-[40px] min-w-[40px] -translate-y-1/2 items-center justify-center rounded-lg text-content-disabled hover:text-content-secondary"
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
           {errors.password ? (
-            <p className="mt-1 text-xs font-medium text-rose-600">{errors.password.message}</p>
+            <p className="mt-1 text-xs font-medium text-danger">{errors.password.message}</p>
           ) : null}
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn mt-2 min-h-[48px] w-full rounded-xl border-none bg-emerald-700 text-sm font-semibold text-white hover:bg-emerald-800"
+          className="btn mt-2 min-h-[48px] w-full rounded-xl border-none bg-brand text-sm font-semibold text-brand-content hover:bg-brand"
         >
           {isSubmitting ? <span className="loading loading-spinner loading-sm" /> : null}
           <span>{UI_MESSAGES.AUTH.REGISTER_SUBMIT}</span>
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-slate-500">
+      <p className="mt-6 text-center text-sm text-content-muted">
         {UI_MESSAGES.AUTH.HAVE_ACCOUNT}{' '}
         <Link
           to={ROUTES.LOGIN}
           onClick={clearAuthError}
-          className="font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
+          className="font-semibold text-brand hover:text-brand hover:underline"
         >
           {UI_MESSAGES.AUTH.GO_LOGIN}
         </Link>

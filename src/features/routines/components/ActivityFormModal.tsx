@@ -66,9 +66,9 @@ export function ActivityFormModal({
       role="dialog"
       aria-modal="true"
     >
-      <div className="modal-box rounded-t-3xl bg-white p-6 sm:rounded-3xl">
+      <div className="modal-box rounded-t-3xl bg-surface p-6 sm:rounded-3xl">
         <div className="mb-5 flex items-center justify-between gap-3">
-          <h3 className="font-display text-lg font-bold text-slate-900">
+          <h3 className="font-display text-lg font-bold text-content">
             {isEditing
               ? UI_MESSAGES.ACTIVITY.MODAL_EDIT_TITLE
               : UI_MESSAGES.ACTIVITY.MODAL_ADD_TITLE}
@@ -77,7 +77,7 @@ export function ActivityFormModal({
             type="button"
             onClick={onClose}
             aria-label={UI_MESSAGES.ACTIVITY.CANCEL}
-            className="flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+            className="flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl text-content-disabled hover:bg-surface-muted hover:text-content-secondary"
           >
             <X className="h-5 w-5" />
           </button>
@@ -87,7 +87,7 @@ export function ActivityFormModal({
           <div>
             <label
               htmlFor="activity-name"
-              className="mb-1.5 block text-sm font-semibold text-slate-700"
+              className="mb-1.5 block text-sm font-semibold text-content-secondary"
             >
               {UI_MESSAGES.ACTIVITY.NAME_LABEL}
             </label>
@@ -95,8 +95,8 @@ export function ActivityFormModal({
               id="activity-name"
               type="text"
               placeholder={UI_MESSAGES.ACTIVITY.NAME_PLACEHOLDER}
-              className={`input input-bordered min-h-[46px] w-full rounded-xl bg-slate-50/70 text-sm text-slate-900 focus:border-emerald-600 focus:bg-white focus:outline-none ${
-                errors.name ? 'border-rose-400' : 'border-slate-200'
+              className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+                errors.name ? 'border-danger' : 'border-border'
               }`}
               {...register('name', {
                 required: UI_MESSAGES.ACTIVITY.NAME_REQUIRED,
@@ -109,7 +109,7 @@ export function ActivityFormModal({
               })}
             />
             {errors.name ? (
-              <p className="mt-1 text-xs font-medium text-rose-600">{errors.name.message}</p>
+              <p className="mt-1 text-xs font-medium text-danger">{errors.name.message}</p>
             ) : null}
           </div>
 
@@ -117,7 +117,7 @@ export function ActivityFormModal({
             <div className="mb-1.5 flex items-center justify-between">
               <label
                 htmlFor="activity-start-time"
-                className="text-sm font-semibold text-slate-700"
+                className="text-sm font-semibold text-content-secondary"
               >
                 {UI_MESSAGES.ACTIVITY.START_TIME_LABEL}
               </label>
@@ -125,25 +125,25 @@ export function ActivityFormModal({
                 <button
                   type="button"
                   onClick={() => setValue('start_time', '')}
-                  className="text-xs font-semibold text-slate-500 hover:text-slate-800"
+                  className="text-xs font-semibold text-content-muted hover:text-content-secondary"
                 >
                   {UI_MESSAGES.ACTIVITY.CLEAR_TIME}
                 </button>
               ) : null}
             </div>
             <div className="relative">
-              <Clock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <Clock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-content-disabled" />
               <input
                 id="activity-start-time"
                 type="time"
-                className="input input-bordered min-h-[46px] w-full rounded-xl border-slate-200 bg-slate-50/70 pl-10 text-sm text-slate-900 focus:border-emerald-600 focus:bg-white focus:outline-none"
+                className="input input-bordered min-h-[46px] w-full rounded-xl border-border bg-surface-subtle/70 pl-10 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
                 {...register('start_time', {
                   validate: (value) =>
                     !value || TIME_INPUT_REGEX.test(value) || 'Format jam tidak valid.',
                 })}
               />
             </div>
-            <p className="mt-1.5 text-xs text-slate-500">
+            <p className="mt-1.5 text-xs text-content-muted">
               {UI_MESSAGES.ACTIVITY.START_TIME_HINT}
             </p>
           </div>
@@ -153,14 +153,14 @@ export function ActivityFormModal({
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="btn min-h-[44px] flex-1 rounded-xl border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+              className="btn min-h-[44px] flex-1 rounded-xl border-border bg-surface text-content-secondary hover:bg-surface-subtle"
             >
               {UI_MESSAGES.ACTIVITY.CANCEL}
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn min-h-[44px] flex-1 rounded-xl border-none bg-slate-900 text-white hover:bg-slate-800"
+              className="btn min-h-[44px] flex-1 rounded-xl border-none bg-neutral text-neutral-content hover:bg-neutral"
             >
               {isSubmitting ? <span className="loading loading-spinner loading-sm" /> : null}
               <span>
@@ -172,7 +172,7 @@ export function ActivityFormModal({
           </div>
         </form>
       </div>
-      <div className="modal-backdrop bg-slate-900/40 backdrop-blur-[2px]" onClick={onClose} />
+      <div className="modal-backdrop bg-neutral/40 backdrop-blur-[2px]" onClick={onClose} />
     </div>
   );
 }

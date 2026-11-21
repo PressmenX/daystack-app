@@ -32,16 +32,16 @@ export function ConfirmModal({
       role="dialog"
       aria-modal="true"
     >
-      <div className="modal-box rounded-t-3xl bg-white p-6 sm:rounded-3xl">
+      <div className="modal-box rounded-t-3xl bg-surface p-6 sm:rounded-3xl">
         <div className="flex items-start gap-3.5">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-rose-50 text-rose-600">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-danger-soft text-danger">
             <AlertTriangle className="h-5 w-5" />
           </div>
           <div>
-            <h3 className="font-display text-lg font-bold text-slate-900">
+            <h3 className="font-display text-lg font-bold text-content">
               {title}
             </h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
+            <p className="mt-1.5 text-sm leading-relaxed text-content-secondary">
               {description}
             </p>
           </div>
@@ -52,7 +52,7 @@ export function ConfirmModal({
             type="button"
             onClick={onCancel}
             disabled={isLoading}
-            className="btn min-h-[44px] flex-1 rounded-xl border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+            className="btn min-h-[44px] flex-1 rounded-xl border-border bg-surface text-content-secondary hover:bg-surface-subtle"
           >
             {cancelLabel}
           </button>
@@ -60,7 +60,7 @@ export function ConfirmModal({
             type="button"
             onClick={() => void onConfirm()}
             disabled={isLoading}
-            className="btn min-h-[44px] flex-1 rounded-xl border-none bg-rose-600 text-white hover:bg-rose-700"
+            className="btn min-h-[44px] flex-1 rounded-xl border-none bg-danger text-danger-content hover:bg-danger"
           >
             {isLoading ? (
               <span className="loading loading-spinner loading-sm" />
@@ -69,7 +69,7 @@ export function ConfirmModal({
           </button>
         </div>
       </div>
-      <div className="modal-backdrop bg-slate-900/40 backdrop-blur-[2px]" onClick={onCancel} />
+      <div className="modal-backdrop bg-neutral/40 backdrop-blur-[2px]" onClick={onCancel} />
     </div>
   );
 }

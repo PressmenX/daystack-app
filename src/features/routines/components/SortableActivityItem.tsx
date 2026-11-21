@@ -50,15 +50,15 @@ export function SortableActivityItem({
             isFirst
               ? 'bg-transparent'
               : activity.is_completed
-                ? 'bg-emerald-700'
-                : 'bg-slate-200'
+                ? 'bg-brand'
+                : 'bg-surface-muted'
           }`}
         />
         <span
           className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-display text-xs font-bold tabular-nums ${
             isHighlightedNode
-              ? 'bg-emerald-700 text-white shadow-xs'
-              : 'border border-slate-200 bg-slate-100 text-slate-600'
+              ? 'bg-brand text-brand-content shadow-xs'
+              : 'border border-border bg-surface-muted text-content-secondary'
           }`}
         >
           {stepLabel}
@@ -68,33 +68,33 @@ export function SortableActivityItem({
             isLast
               ? 'bg-transparent'
               : activity.is_completed
-                ? 'bg-emerald-700'
-                : 'bg-slate-200'
+                ? 'bg-brand'
+                : 'bg-surface-muted'
           }`}
         />
       </div>
 
       <div
-        className={`mb-3 flex flex-1 items-center justify-between gap-3 rounded-2xl border bg-white px-4 py-3.5 transition-shadow ${
+        className={`mb-3 flex flex-1 items-center justify-between gap-3 rounded-2xl border bg-surface px-4 py-3.5 transition-shadow ${
           isDragging
-            ? 'border-emerald-300 shadow-lg ring-2 ring-emerald-500/20'
-            : 'border-slate-200/80 shadow-xs'
+            ? 'border-brand/50 shadow-lg ring-2 ring-brand/20'
+            : 'border-border/80 shadow-xs'
         }`}
       >
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="truncate font-display text-sm font-bold text-slate-900 sm:text-base">
+            <p className="truncate font-display text-sm font-bold text-content sm:text-base">
               {activity.name}
             </p>
             {isDragging ? (
-              <span className="rounded-md bg-amber-100 px-2 py-0.5 text-[10px] font-bold tracking-wide text-amber-800">
+              <span className="rounded-md bg-warning-soft px-2 py-0.5 text-[10px] font-bold tracking-wide text-warning">
                 {UI_MESSAGES.REORDER.DRAGGING_BADGE}
               </span>
             ) : null}
           </div>
 
           {formattedTime ? (
-            <p className="mt-1 text-xs font-medium tabular-nums text-slate-500">
+            <p className="mt-1 text-xs font-medium tabular-nums text-content-muted">
               {formattedTime} {UI_MESSAGES.REORDER.TIME_SUFFIX}
             </p>
           ) : null}
@@ -105,8 +105,8 @@ export function SortableActivityItem({
           aria-label={`Geser urutan ${activity.name}`}
           className={`flex min-h-[44px] min-w-[44px] touch-none cursor-grab items-center justify-center rounded-xl transition-colors active:cursor-grabbing ${
             isDragging
-              ? 'bg-emerald-100 text-emerald-800'
-              : 'text-slate-400 hover:bg-slate-100 hover:text-slate-700'
+              ? 'bg-brand/15 text-brand'
+              : 'text-content-disabled hover:bg-surface-muted hover:text-content-secondary'
           }`}
           {...attributes}
           {...listeners}

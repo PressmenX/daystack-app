@@ -10,8 +10,8 @@ function AppRoutes() {
 
   if (isInitializing) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#F6F8FB]">
-        <span className="loading loading-spinner loading-lg text-emerald-700" />
+      <div className="flex min-h-screen items-center justify-center bg-surface-subtle">
+        <span className="loading loading-spinner loading-lg text-brand" />
       </div>
     );
   }

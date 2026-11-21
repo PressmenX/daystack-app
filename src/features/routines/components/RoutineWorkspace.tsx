@@ -71,7 +71,7 @@ export function RoutineWorkspace({ user, onLogout, view }: RoutineWorkspaceProps
     view === 'reorder' ? UI_MESSAGES.HEADER.REORDER_TITLE : UI_MESSAGES.HEADER.TODAY;
 
   return (
-    <div className="min-h-screen bg-[#F6F8FB] pb-24 lg:pb-12">
+    <div className="min-h-screen bg-surface-subtle pb-24 lg:pb-12">
       <AppHeader
         title={headerTitle}
         user={user}
@@ -92,11 +92,11 @@ export function RoutineWorkspace({ user, onLogout, view }: RoutineWorkspaceProps
           <div className="space-y-6 lg:grid lg:grid-cols-12 lg:items-start lg:gap-8 lg:space-y-0">
             <div className="space-y-5 lg:sticky lg:top-24 lg:col-span-5">
               <div>
-                <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
-                  <Calendar className="h-3.5 w-3.5 text-amber-600" />
+                <div className="flex items-center gap-1.5 text-xs font-medium text-content-muted">
+                  <Calendar className="h-3.5 w-3.5 text-warning" />
                   <span>{formatIndonesianDate()}</span>
                 </div>
-                <h2 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+                <h2 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-content sm:text-3xl">
                   {UI_MESSAGES.DASHBOARD.GREETING_PREFIX} {user.name}{' '}
                   <span aria-hidden="true">👋</span>
                 </h2>
@@ -127,7 +127,7 @@ export function RoutineWorkspace({ user, onLogout, view }: RoutineWorkspaceProps
           type="button"
           onClick={openAddModal}
           aria-label={UI_MESSAGES.DASHBOARD.ADD_BUTTON}
-          className="fixed bottom-6 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-[#161B26] text-white shadow-xl transition-transform hover:scale-105 active:scale-95 lg:hidden"
+          className="fixed bottom-6 right-5 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-neutral text-neutral-content shadow-xl transition-transform hover:scale-105 active:scale-95 lg:hidden"
         >
           <Plus className="h-6 w-6 stroke-[2.5]" />
         </button>

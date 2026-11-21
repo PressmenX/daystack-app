@@ -13,7 +13,7 @@ export function TimelineLoadingState({
       {[1, 2, 3].map((item) => (
         <div
           key={item}
-          className="flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white p-4"
+          className="flex items-center gap-4 rounded-2xl border border-border/70 bg-surface p-4"
         >
           <div className="skeleton h-6 w-6 shrink-0 rounded-full" />
           <div className="flex-1 space-y-2">
@@ -36,16 +36,16 @@ export function TimelineErrorState({ message, onRetry }: ErrorStateProps) {
   return (
     <div
       role="alert"
-      className="alert flex flex-col items-start gap-4 rounded-2xl border border-rose-200 bg-rose-50 p-5 text-rose-950 sm:flex-row sm:items-center sm:justify-between"
+      className="alert flex flex-col items-start gap-4 rounded-2xl border border-danger/20 bg-danger-soft p-5 text-danger sm:flex-row sm:items-center sm:justify-between"
     >
       <div className="flex items-start gap-3">
-        <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-rose-600" />
+        <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-danger" />
         <p className="text-sm font-medium">{message}</p>
       </div>
       <button
         type="button"
         onClick={onRetry}
-        className="btn btn-sm min-h-[40px] rounded-xl border-rose-200 bg-white px-4 text-rose-700 hover:bg-rose-100"
+        className="btn btn-sm min-h-[40px] rounded-xl border-danger/20 bg-surface px-4 text-danger hover:bg-danger/15"
       >
         <RefreshCw className="h-4 w-4" />
         <span>{UI_MESSAGES.STATES.RETRY}</span>
@@ -60,20 +60,20 @@ interface EmptyStateProps {
 
 export function TimelineEmptyState({ onAddFirst }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-10 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-700">
+    <div className="flex flex-col items-center rounded-3xl border border-dashed border-surface-muted bg-surface px-6 py-10 text-center">
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand/10 text-brand">
         <ListPlus className="h-7 w-7" />
       </div>
-      <h3 className="mt-4 font-display text-lg font-bold text-slate-900">
+      <h3 className="mt-4 font-display text-lg font-bold text-content">
         {UI_MESSAGES.STATES.EMPTY_TITLE}
       </h3>
-      <p className="mt-1.5 max-w-sm text-sm leading-relaxed text-slate-500">
+      <p className="mt-1.5 max-w-sm text-sm leading-relaxed text-content-muted">
         {UI_MESSAGES.STATES.EMPTY_DESCRIPTION}
       </p>
       <button
         type="button"
         onClick={onAddFirst}
-        className="btn mt-5 min-h-[44px] rounded-xl border-none bg-emerald-700 px-5 text-sm font-semibold text-white hover:bg-emerald-800"
+        className="btn mt-5 min-h-[44px] rounded-xl border-none bg-brand px-5 text-sm font-semibold text-brand-content hover:bg-brand"
       >
         {UI_MESSAGES.STATES.EMPTY_CTA}
       </button>

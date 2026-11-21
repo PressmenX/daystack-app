@@ -18,15 +18,15 @@ export function FeedbackToast() {
             role="status"
             className={`alert flex items-center justify-between gap-3 rounded-2xl border shadow-lg ${
               isSuccess
-                ? 'alert-success border-emerald-200 bg-emerald-50 text-emerald-950'
-                : 'alert-error border-rose-200 bg-rose-50 text-rose-950'
+                ? 'alert-success border-brand/20 bg-brand/10 text-brand'
+                : 'alert-error border-danger/20 bg-danger-soft text-danger'
             }`}
           >
             <div className="flex items-center gap-2.5">
               {isSuccess ? (
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600" />
+                <CheckCircle2 className="h-5 w-5 shrink-0 text-brand" />
               ) : (
-                <AlertCircle className="h-5 w-5 shrink-0 text-rose-600" />
+                <AlertCircle className="h-5 w-5 shrink-0 text-danger" />
               )}
               <span className="text-sm font-medium">{toast.message}</span>
             </div>
@@ -34,7 +34,7 @@ export function FeedbackToast() {
               type="button"
               onClick={() => dismissToast(toast.id)}
               aria-label="Tutup"
-              className="flex min-h-[36px] min-w-[36px] items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-black/5"
+              className="flex min-h-[36px] min-w-[36px] items-center justify-center rounded-lg text-content-muted transition-colors hover:bg-black/5"
             >
               <X className="h-4 w-4" />
             </button>

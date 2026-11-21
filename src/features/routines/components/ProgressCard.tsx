@@ -25,19 +25,19 @@ export function ProgressCard({ progress }: ProgressCardProps) {
   return (
     <section
       aria-label={UI_MESSAGES.DASHBOARD.PROGRESS_KICKER}
-      className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6"
+      className="relative overflow-hidden rounded-3xl border border-border/80 bg-surface p-5 shadow-sm sm:p-6"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(16,185,129,0.13),_transparent_58%)]"
+        className="pointer-events-none absolute inset-0 bg-brand/10"
       />
 
       <div className="relative">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-[11px] font-bold tracking-[0.12em] text-slate-500">
+          <p className="text-[11px] font-bold tracking-[0.12em] text-content-muted">
             {UI_MESSAGES.DASHBOARD.PROGRESS_KICKER}
           </p>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/10 px-2.5 py-1 text-xs font-semibold text-brand">
             {totalCount === 0 ? (
               <Clock className="h-3.5 w-3.5" />
             ) : (
@@ -49,16 +49,16 @@ export function ProgressCard({ progress }: ProgressCardProps) {
 
         <div className="mt-3 flex items-baseline justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <span className="font-display text-2xl font-extrabold tabular-nums text-slate-900 sm:text-3xl">
+            <span className="font-display text-2xl font-extrabold tabular-nums text-content sm:text-3xl">
               {completedCount} / {totalCount} {UI_MESSAGES.DASHBOARD.COMPLETED_LABEL}
             </span>
             {completedCount > 0 ? (
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-700 text-white">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand text-brand-content">
                 <Check className="h-3.5 w-3.5 stroke-[3]" />
               </span>
             ) : null}
           </div>
-          <span className="font-display text-xl font-bold tabular-nums text-emerald-700 sm:text-2xl">
+          <span className="font-display text-xl font-bold tabular-nums text-brand sm:text-2xl">
             {percentage}%
           </span>
         </div>
@@ -68,16 +68,16 @@ export function ProgressCard({ progress }: ProgressCardProps) {
           aria-valuenow={percentage}
           aria-valuemin={0}
           aria-valuemax={100}
-          className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-emerald-100"
+          className="mt-4 h-2.5 w-full overflow-hidden rounded-full bg-brand/15"
         >
           <div
-            className="h-full rounded-full bg-emerald-600 transition-all duration-300"
+            className="h-full rounded-full bg-brand transition-all duration-300"
             style={{ width: `${percentage}%` }}
           />
         </div>
 
-        <div className="mt-4 flex items-start gap-2 text-sm leading-relaxed text-slate-600">
-          <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
+        <div className="mt-4 flex items-start gap-2 text-sm leading-relaxed text-content-secondary">
+          <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
           <p>{helperMessage}</p>
         </div>
       </div>

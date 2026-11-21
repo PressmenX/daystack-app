@@ -84,35 +84,35 @@ export function ReorderRoutineView({
             type="button"
             onClick={onBack}
             aria-label={UI_MESSAGES.REORDER.BACK_LABEL}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-white text-slate-700 shadow-xs ring-1 ring-slate-200/80 transition-colors hover:bg-slate-50"
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-surface text-content-secondary shadow-xs ring-1 ring-border/80 transition-colors hover:bg-surface-subtle"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <h2 className="font-display text-lg font-extrabold text-slate-900 sm:text-xl">
+          <h2 className="font-display text-lg font-extrabold text-content sm:text-xl">
             {UI_MESSAGES.REORDER.PAGE_TITLE}
           </h2>
         </div>
 
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1.5 text-xs font-bold text-emerald-800">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/15 px-3 py-1.5 text-xs font-bold text-brand">
           <LayoutGrid className="h-3.5 w-3.5" />
           <span>{UI_MESSAGES.REORDER.MODE_BADGE}</span>
         </span>
       </div>
 
-      <div className="flex items-start gap-3 rounded-2xl bg-[#EEF2FF] px-4 py-3.5 text-sm leading-relaxed text-slate-700">
-        <Hand className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" />
+      <div className="flex items-start gap-3 rounded-2xl bg-info/10 px-4 py-3.5 text-sm leading-relaxed text-content-secondary">
+        <Hand className="mt-0.5 h-5 w-5 shrink-0 text-warning" />
         <p>{UI_MESSAGES.REORDER.INSTRUCTION}</p>
       </div>
 
-      <div className="flex items-center gap-3.5 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xs">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-800">
+      <div className="flex items-center gap-3.5 rounded-2xl border border-border/80 bg-surface p-4 shadow-xs">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand/15 text-brand">
           <BookOpen className="h-5 w-5" />
         </div>
         <div>
-          <p className="font-display text-sm font-bold text-slate-900 sm:text-base">
+          <p className="font-display text-sm font-bold text-content sm:text-base">
             {UI_MESSAGES.REORDER.PAGE_TITLE}
           </p>
-          <p className="text-xs font-medium tabular-nums text-slate-500">
+          <p className="text-xs font-medium tabular-nums text-content-muted">
             {draftActivities.length} {UI_MESSAGES.REORDER.CARD_SUBTITLE_SUFFIX}
           </p>
         </div>
@@ -145,9 +145,9 @@ export function ReorderRoutineView({
         <button
           type="button"
           onClick={onAddStep}
-          className="btn min-h-[48px] w-full rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-800 shadow-xs hover:bg-slate-50"
+          className="btn min-h-[48px] w-full rounded-full border border-border bg-surface text-sm font-semibold text-content-secondary shadow-xs hover:bg-surface-subtle"
         >
-          <PlusCircle className="h-4 w-4 text-emerald-700" />
+          <PlusCircle className="h-4 w-4 text-brand" />
           <span>{UI_MESSAGES.REORDER.ADD_STEP_BUTTON}</span>
         </button>
 
@@ -155,12 +155,12 @@ export function ReorderRoutineView({
           type="button"
           onClick={() => void handleSave()}
           disabled={isSaving}
-          className="btn min-h-[50px] w-full rounded-full border-none bg-[#161B26] text-sm font-semibold text-white shadow-md hover:bg-slate-800"
+          className="btn min-h-[50px] w-full rounded-full border-none bg-neutral text-sm font-semibold text-neutral-content shadow-md hover:bg-neutral"
         >
           {isSaving ? (
             <span className="loading loading-spinner loading-sm" />
           ) : (
-            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+            <CheckCircle2 className="h-4 w-4 text-brand/60" />
           )}
           <span>{UI_MESSAGES.REORDER.SAVE_ORDER_BUTTON}</span>
         </button>
