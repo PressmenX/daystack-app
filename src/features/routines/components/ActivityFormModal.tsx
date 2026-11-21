@@ -161,14 +161,14 @@ export function ActivityFormModal({
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="btn min-h-[44px] flex-1 rounded-xl border-border bg-surface text-content-secondary hover:bg-surface-subtle"
+              className="btn min-h-11 flex-1 rounded-xl border-border bg-surface text-content-secondary hover:bg-surface-subtle"
             >
               {UI_MESSAGES.ACTIVITY.CANCEL}
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn min-h-[44px] flex-1 rounded-xl border-none bg-neutral text-neutral-content hover:bg-neutral"
+              className="btn min-h-11 flex-1 rounded-xl border-none bg-neutral text-neutral-content hover:bg-neutral"
             >
               {isSubmitting ? (
                 <span className="loading loading-spinner loading-sm" />

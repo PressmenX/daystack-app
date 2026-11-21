@@ -54,7 +54,7 @@ export function ProgressCard({ progress }: ProgressCardProps) {
             </span>
             {completedCount > 0 ? (
               <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-brand text-brand-content">
-                <Check className="h-3.5 w-3.5 stroke-[3]" />
+                <Check className="h-3.5 w-3.5 stroke-3" />
               </span>
             ) : null}
           </div>

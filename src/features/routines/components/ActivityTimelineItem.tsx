@@ -40,7 +40,7 @@ export function ActivityTimelineItem({
         <div className="relative z-10 flex h-6 w-6 shrink-0 items-center justify-center">
           {activity.is_completed ? (
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand text-brand-content shadow-xs">
-              <Check className="h-3.5 w-3.5 stroke-[3]" />
+              <Check className="h-3.5 w-3.5 stroke-3" />
             </span>
           ) : isNext ? (
             <span className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-warning bg-warning-soft">
@@ -94,7 +94,7 @@ export function ActivityTimelineItem({
           ) : null}
 
           <p
-            className={`break-words text-sm font-semibold sm:text-base ${
+            className={`wrap-break-word text-sm font-semibold sm:text-base ${
               activity.is_completed
                 ? "text-content-disabled line-through"
                 : "text-content"
@@ -109,7 +109,7 @@ export function ActivityTimelineItem({
             type="button"
             onClick={() => onEdit(activity)}
             aria-label={`Ubah ${activity.name}`}
-            className="flex min-h-[44px]  min-w-10 items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-surface-muted hover:text-content-secondary focus-visible:outline-2 focus-visible:outline-brand"
+            className="flex min-h-11 min-w-10 items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-surface-muted hover:text-content-secondary focus-visible:outline-2 focus-visible:outline-brand"
           >
             <Pencil className="h-4 w-4" />
           </button>
@@ -118,7 +118,7 @@ export function ActivityTimelineItem({
             type="button"
             onClick={() => onDelete(activity)}
             aria-label={`Hapus ${activity.name}`}
-            className="flex min-h-[44px]  min-w-10 items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-danger-soft hover:text-danger focus-visible:outline-2 focus-visible:outline-danger"
+            className="flex min-h-11 min-w-10 items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-danger-soft hover:text-danger focus-visible:outline-2 focus-visible:outline-danger"
           >
             <Trash2 className="h-4 w-4" />
           </button>
@@ -129,7 +129,7 @@ export function ActivityTimelineItem({
             aria-checked={activity.is_completed}
             aria-label={`Tandai ${activity.name} ${activity.is_completed ? "belum selesai" : "selesai"}`}
             onClick={() => void onToggle(activity)}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl transition-transform active:scale-95 focus-visible:outline-2 focus-visible:outline-brand"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-xl transition-transform active:scale-95 focus-visible:outline-2 focus-visible:outline-brand"
           >
             {activity.is_completed ? (
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand text-brand-content">

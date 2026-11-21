@@ -73,7 +73,7 @@ export function TimelineEmptyState({ onAddFirst }: EmptyStateProps) {
       <button
         type="button"
         onClick={onAddFirst}
-        className="btn mt-5 min-h-[44px] rounded-xl border-none bg-brand px-5 text-sm font-semibold text-brand-content hover:bg-brand"
+        className="btn mt-5 min-h-11 rounded-xl border-none bg-brand px-5 text-sm font-semibold text-brand-content hover:bg-brand"
       >
         {UI_MESSAGES.STATES.EMPTY_CTA}
       </button>

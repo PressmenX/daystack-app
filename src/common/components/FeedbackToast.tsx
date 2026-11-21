@@ -1,4 +1,5 @@
 import { AlertCircle, CheckCircle2, X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { useToast } from '../useToast';
 
 export function FeedbackToast() {
@@ -8,8 +9,8 @@ export function FeedbackToast() {
     return null;
   }
 
-  return (
-    <div className="toast toast-top toast-center z-50 w-full max-w-md px-4 pt-4">
+  return createPortal(
+    <div className="toast toast-top toast-center z-9999 w-full max-w-md px-4 pt-4">
       {toasts.map((toast) => {
         const isSuccess = toast.variant === 'success';
         return (
@@ -18,7 +19,7 @@ export function FeedbackToast() {
             role="status"
             className={`alert flex items-center justify-between gap-3 rounded-2xl border shadow-lg ${
               isSuccess
-                ? 'alert-success border-brand/20 bg-brand/10 text-brand'
+                ? 'alert-success border-brand/20 bg-brand/10 text-brand backdrop-blur-2xl'
                 : 'alert-error border-danger/20 bg-danger-soft text-danger'
             }`}
           >
@@ -34,13 +35,14 @@ export function FeedbackToast() {
               type="button"
               onClick={() => dismissToast(toast.id)}
               aria-label="Tutup"
-              className="flex min-h-[36px] min-w-[36px] items-center justify-center rounded-lg text-content-muted transition-colors hover:bg-black/5"
+              className="flex min-h-9 min-w-9 items-center justify-center rounded-lg text-content-muted transition-colors hover:bg-black/5"
             >
               <X className="h-4 w-4" />
             </button>
           </div>
         );
       })}
-    </div>
+    </div>,
+    document.body
   );
 }

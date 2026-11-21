@@ -34,7 +34,7 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
               type="button"
               onClick={onBack}
               aria-label={UI_MESSAGES.REORDER.BACK_LABEL}
-              className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl text-content-secondary transition-colors hover:bg-surface-muted/70 focus-visible:outline-2 focus-visible:outline-brand"
+              className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-content-secondary transition-colors hover:bg-surface-muted/70 focus-visible:outline-2 focus-visible:outline-brand"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
@@ -70,7 +70,7 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label={UI_MESSAGES.HEADER.ACCOUNT}
             aria-expanded={menuOpen}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-brand text-brand-content shadow-sm transition-all hover:brightness-70"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-full bg-brand text-brand-content shadow-sm transition-all hover:brightness-70"
           >
             <span>{user.name[0]}</span>
           </button>
@@ -94,7 +94,7 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
                   setMenuOpen(false);
                   await onLogout();
                 }}
-                className="mt-2 flex min-h-[44px] w-full items-center gap-2.5 rounded-xl px-2.5 text-sm font-medium text-danger transition-colors hover:bg-danger-soft"
+                className="mt-2 flex min-h-11 w-full items-center gap-2.5 rounded-xl px-2.5 text-sm font-medium text-danger transition-colors hover:bg-danger-soft"
               >
                 <LogOut className="h-4 w-4" />
                 <span>{UI_MESSAGES.HEADER.LOGOUT}</span>

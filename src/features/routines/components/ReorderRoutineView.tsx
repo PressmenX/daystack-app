@@ -89,7 +89,7 @@ export function ReorderRoutineView({
             type="button"
             onClick={onBack}
             aria-label={UI_MESSAGES.REORDER.BACK_LABEL}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-surface text-content-secondary shadow-xs ring-1 ring-border/80 transition-colors hover:bg-surface-subtle"
+            className="flex min-h-11 min-w-11 items-center justify-center rounded-full bg-surface text-content-secondary shadow-xs ring-1 ring-border/80 transition-colors hover:bg-surface-subtle"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -160,7 +160,7 @@ export function ReorderRoutineView({
           type="button"
           onClick={() => void handleSave()}
           disabled={isSaving}
-          className="btn min-h-[50px] w-full rounded-full border-none bg-neutral text-sm font-semibold text-neutral-content shadow-md hover:bg-neutral"
+          className="btn min-h-12.5 w-full rounded-full border-none bg-neutral text-sm font-semibold text-neutral-content shadow-md hover:bg-neutral"
         >
           {isSaving ? (
             <span className="loading loading-spinner loading-sm" />

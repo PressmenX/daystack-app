@@ -103,7 +103,7 @@ export function SortableActivityItem({
         <button
           type="button"
           aria-label={`Geser urutan ${activity.name}`}
-          className={`flex min-h-[44px] min-w-[44px] touch-none cursor-grab items-center justify-center rounded-xl transition-colors active:cursor-grabbing ${
+          className={`flex min-h-11 min-w-11 touch-none cursor-grab items-center justify-center rounded-xl transition-colors active:cursor-grabbing ${
             isDragging
               ? 'bg-brand/15 text-brand'
               : 'text-content-disabled hover:bg-surface-muted hover:text-content-secondary'
