@@ -1,12 +1,12 @@
-import { Clock, X } from 'lucide-react';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Clock, X } from "lucide-react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import {
   MAX_ACTIVITY_NAME_LENGTH,
   TIME_INPUT_REGEX,
-} from '../../../constants/appConstants';
-import { UI_MESSAGES } from '../../../constants/messages';
-import type { Activity, ActivityFormValues } from '../routine.types';
+} from "../../../constants/appConstants";
+import { UI_MESSAGES } from "../../../constants/messages";
+import type { Activity, ActivityFormValues } from "../routine.types";
 
 interface ActivityFormModalProps {
   open: boolean;
@@ -31,18 +31,18 @@ export function ActivityFormModal({
     watch,
     formState: { errors },
   } = useForm<ActivityFormValues>({
-    defaultValues: { name: '', start_time: '' },
+    defaultValues: { name: "", start_time: "" },
   });
 
-  const startTimeValue = watch('start_time');
+  const startTimeValue = watch("start_time");
 
   useEffect(() => {
     if (open) {
       reset({
-        name: editingActivity?.name ?? '',
+        name: editingActivity?.name ?? "",
         start_time: editingActivity?.start_time
           ? editingActivity.start_time.slice(0, 5)
-          : '',
+          : "",
       });
     }
   }, [editingActivity, open, reset]);
@@ -77,13 +77,17 @@ export function ActivityFormModal({
             type="button"
             onClick={onClose}
             aria-label={UI_MESSAGES.ACTIVITY.CANCEL}
-            className="flex min-h-[40px] min-w-[40px] items-center justify-center rounded-xl text-content-disabled hover:bg-surface-muted hover:text-content-secondary"
+            className="flex  min-h-10  min-w-10 items-center justify-center rounded-xl text-content-disabled hover:bg-surface-muted hover:text-content-secondary"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4" noValidate>
+        <form
+          onSubmit={handleSubmit(handleFormSubmit)}
+          className="space-y-4"
+          noValidate
+        >
           <div>
             <label
               htmlFor="activity-name"
@@ -95,10 +99,10 @@ export function ActivityFormModal({
               id="activity-name"
               type="text"
               placeholder={UI_MESSAGES.ACTIVITY.NAME_PLACEHOLDER}
-              className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
-                errors.name ? 'border-danger' : 'border-border'
+              className={`input input-bordered min-h-11.5 w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+                errors.name ? "border-danger" : "border-border"
               }`}
-              {...register('name', {
+              {...register("name", {
                 required: UI_MESSAGES.ACTIVITY.NAME_REQUIRED,
                 validate: (value) =>
                   value.trim().length > 0 || UI_MESSAGES.ACTIVITY.NAME_REQUIRED,
@@ -109,7 +113,9 @@ export function ActivityFormModal({
               })}
             />
             {errors.name ? (
-              <p className="mt-1 text-xs font-medium text-danger">{errors.name.message}</p>
+              <p className="mt-1 text-xs font-medium text-danger">
+                {errors.name.message}
+              </p>
             ) : null}
           </div>
 
@@ -124,7 +130,7 @@ export function ActivityFormModal({
               {startTimeValue ? (
                 <button
                   type="button"
-                  onClick={() => setValue('start_time', '')}
+                  onClick={() => setValue("start_time", "")}
                   className="text-xs font-semibold text-content-muted hover:text-content-secondary"
                 >
                   {UI_MESSAGES.ACTIVITY.CLEAR_TIME}
@@ -136,10 +142,12 @@ export function ActivityFormModal({
               <input
                 id="activity-start-time"
                 type="time"
-                className="input input-bordered min-h-[46px] w-full rounded-xl border-border bg-surface-subtle/70 pl-10 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
-                {...register('start_time', {
+                className="input input-bordered min-h-11.5 w-full rounded-xl border-border bg-surface-subtle/70 pl-10 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
+                {...register("start_time", {
                   validate: (value) =>
-                    !value || TIME_INPUT_REGEX.test(value) || 'Format jam tidak valid.',
+                    !value ||
+                    TIME_INPUT_REGEX.test(value) ||
+                    "Format jam tidak valid.",
                 })}
               />
             </div>
@@ -162,7 +170,9 @@ export function ActivityFormModal({
               disabled={isSubmitting}
               className="btn min-h-[44px] flex-1 rounded-xl border-none bg-neutral text-neutral-content hover:bg-neutral"
             >
-              {isSubmitting ? <span className="loading loading-spinner loading-sm" /> : null}
+              {isSubmitting ? (
+                <span className="loading loading-spinner loading-sm" />
+              ) : null}
               <span>
                 {isEditing
                   ? UI_MESSAGES.ACTIVITY.SAVE_UPDATE
@@ -172,7 +182,10 @@ export function ActivityFormModal({
           </div>
         </form>
       </div>
-      <div className="modal-backdrop bg-neutral/40 backdrop-blur-[2px]" onClick={onClose} />
+      <div
+        className="modal-backdrop bg-neutral/40 backdrop-blur-[2px]"
+        onClick={onClose}
+      />
     </div>
   );
 }

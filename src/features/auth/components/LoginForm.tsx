@@ -1,13 +1,16 @@
-import { AlertCircle, Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { EMAIL_REGEX, MIN_PASSWORD_LENGTH } from '../../../constants/appConstants';
-import { UI_MESSAGES } from '../../../constants/messages';
-import { ROUTES } from '../../../constants/routes';
-import type { LoginCredentials } from '../auth.types';
-import { useAuth } from '../useAuth';
-import { AuthShell } from './AuthShell';
+import { AlertCircle, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import {
+  EMAIL_REGEX,
+  MIN_PASSWORD_LENGTH,
+} from "../../../constants/appConstants";
+import { UI_MESSAGES } from "../../../constants/messages";
+import { ROUTES } from "../../../constants/routes";
+import type { LoginCredentials } from "../auth.types";
+import { useAuth } from "../useAuth";
+import { AuthShell } from "./AuthShell";
 
 export function LoginForm() {
   const { login, isSubmitting, authError, clearAuthError } = useAuth();
@@ -18,7 +21,7 @@ export function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginCredentials>({
-    defaultValues: { email: '', password: '' },
+    defaultValues: { email: "", password: "" },
   });
 
   async function onSubmit(values: LoginCredentials): Promise<void> {
@@ -31,7 +34,10 @@ export function LoginForm() {
       subtitle={UI_MESSAGES.AUTH.LOGIN_SUBTITLE}
     >
       {authError ? (
-        <div role="alert" className="alert alert-error mb-5 rounded-2xl border border-danger/20 bg-danger-soft text-danger">
+        <div
+          role="alert"
+          className="alert alert-error mb-5 rounded-2xl border border-danger/20 bg-danger-soft text-danger"
+        >
           <AlertCircle className="h-5 w-5 shrink-0 text-danger" />
           <span className="text-sm font-medium">{authError}</span>
         </div>
@@ -39,7 +45,10 @@ export function LoginForm() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         <div>
-          <label htmlFor="login-email" className="mb-1.5 block text-sm font-semibold text-content-secondary">
+          <label
+            htmlFor="login-email"
+            className="mb-1.5 block text-sm font-semibold text-content-secondary"
+          >
             {UI_MESSAGES.AUTH.EMAIL_LABEL}
           </label>
           <input
@@ -47,10 +56,10 @@ export function LoginForm() {
             type="email"
             autoComplete="email"
             placeholder={UI_MESSAGES.AUTH.EMAIL_PLACEHOLDER}
-            className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
-              errors.email ? 'border-danger' : 'border-border'
+            className={`input input-bordered min-h-11.5 w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+              errors.email ? "border-danger" : "border-border"
             }`}
-            {...register('email', {
+            {...register("email", {
               required: UI_MESSAGES.AUTH.EMAIL_REQUIRED,
               pattern: {
                 value: EMAIL_REGEX,
@@ -60,24 +69,29 @@ export function LoginForm() {
             })}
           />
           {errors.email ? (
-            <p className="mt-1 text-xs font-medium text-danger">{errors.email.message}</p>
+            <p className="mt-1 text-xs font-medium text-danger">
+              {errors.email.message}
+            </p>
           ) : null}
         </div>
 
         <div>
-          <label htmlFor="login-password" className="mb-1.5 block text-sm font-semibold text-content-secondary">
+          <label
+            htmlFor="login-password"
+            className="mb-1.5 block text-sm font-semibold text-content-secondary"
+          >
             {UI_MESSAGES.AUTH.PASSWORD_LABEL}
           </label>
           <div className="relative">
             <input
               id="login-password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               autoComplete="current-password"
               placeholder={UI_MESSAGES.AUTH.PASSWORD_PLACEHOLDER}
-              className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 pr-12 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
-                errors.password ? 'border-danger' : 'border-border'
+              className={`input input-bordered min-h-11.5 w-full rounded-xl bg-surface-subtle/70 pr-12 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+                errors.password ? "border-danger" : "border-border"
               }`}
-              {...register('password', {
+              {...register("password", {
                 required: UI_MESSAGES.AUTH.PASSWORD_REQUIRED,
                 minLength: {
                   value: MIN_PASSWORD_LENGTH,
@@ -89,29 +103,39 @@ export function LoginForm() {
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Lihat kata sandi'}
-              className="absolute right-1 top-1/2 flex min-h-[40px] min-w-[40px] -translate-y-1/2 items-center justify-center rounded-lg text-content-disabled hover:text-content-secondary"
+              aria-label={
+                showPassword ? "Sembunyikan kata sandi" : "Lihat kata sandi"
+              }
+              className="absolute right-1 top-1/2 flex  min-h-10  min-w-10 -translate-y-1/2 items-center justify-center rounded-lg text-content-disabled hover:text-content-secondary"
             >
-              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
             </button>
           </div>
           {errors.password ? (
-            <p className="mt-1 text-xs font-medium text-danger">{errors.password.message}</p>
+            <p className="mt-1 text-xs font-medium text-danger">
+              {errors.password.message}
+            </p>
           ) : null}
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn mt-2 min-h-[48px] w-full rounded-xl border-none bg-neutral text-sm font-semibold text-neutral-content hover:bg-neutral"
+          className="btn mt-2 min-h-12 w-full rounded-xl border-none bg-neutral text-sm font-semibold text-neutral-content hover:bg-neutral"
         >
-          {isSubmitting ? <span className="loading loading-spinner loading-sm" /> : null}
+          {isSubmitting ? (
+            <span className="loading loading-spinner loading-sm" />
+          ) : null}
           <span>{UI_MESSAGES.AUTH.LOGIN_SUBMIT}</span>
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-content-muted">
-        {UI_MESSAGES.AUTH.NO_ACCOUNT}{' '}
+        {UI_MESSAGES.AUTH.NO_ACCOUNT}{" "}
         <Link
           to={ROUTES.REGISTER}
           onClick={clearAuthError}

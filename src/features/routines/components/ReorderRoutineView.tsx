@@ -7,13 +7,13 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
+} from "@dnd-kit/sortable";
 import {
   BookOpen,
   CheckCircle2,
@@ -21,11 +21,11 @@ import {
   Hand,
   LayoutGrid,
   PlusCircle,
-} from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { UI_MESSAGES } from '../../../constants/messages';
-import type { Activity } from '../routine.types';
-import { SortableActivityItem } from './SortableActivityItem';
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import { UI_MESSAGES } from "../../../constants/messages";
+import type { Activity } from "../routine.types";
+import { SortableActivityItem } from "./SortableActivityItem";
 
 interface ReorderRoutineViewProps {
   activities: Activity[];
@@ -42,7 +42,8 @@ export function ReorderRoutineView({
   onAddStep,
   onBack,
 }: ReorderRoutineViewProps) {
-  const [draftActivities, setDraftActivities] = useState<Activity[]>(activities);
+  const [draftActivities, setDraftActivities] =
+    useState<Activity[]>(activities);
 
   useEffect(() => {
     setDraftActivities(activities);
@@ -50,8 +51,12 @@ export function ReorderRoutineView({
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 140, tolerance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 140, tolerance: 5 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   function handleDragEnd(event: DragEndEvent): void {
@@ -145,7 +150,7 @@ export function ReorderRoutineView({
         <button
           type="button"
           onClick={onAddStep}
-          className="btn min-h-[48px] w-full rounded-full border border-border bg-surface text-sm font-semibold text-content-secondary shadow-xs hover:bg-surface-subtle"
+          className="btn min-h-12 w-full rounded-full border border-border bg-surface text-sm font-semibold text-content-secondary shadow-xs hover:bg-surface-subtle"
         >
           <PlusCircle className="h-4 w-4 text-brand" />
           <span>{UI_MESSAGES.REORDER.ADD_STEP_BUTTON}</span>

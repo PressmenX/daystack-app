@@ -1,5 +1,5 @@
-import { AlertCircle, ListPlus, RefreshCw } from 'lucide-react';
-import { UI_MESSAGES } from '../../constants/messages';
+import { AlertCircle, ListPlus, RefreshCw } from "lucide-react";
+import { UI_MESSAGES } from "../../constants/messages";
 
 interface LoadingStateProps {
   message?: string;
@@ -45,7 +45,7 @@ export function TimelineErrorState({ message, onRetry }: ErrorStateProps) {
       <button
         type="button"
         onClick={onRetry}
-        className="btn btn-sm min-h-[40px] rounded-xl border-danger/20 bg-surface px-4 text-danger hover:bg-danger/15"
+        className="btn btn-sm  min-h-10 rounded-xl border-danger/20 bg-surface px-4 text-danger hover:bg-danger/15"
       >
         <RefreshCw className="h-4 w-4" />
         <span>{UI_MESSAGES.STATES.RETRY}</span>

@@ -1,7 +1,7 @@
-import { Check, Pencil, Trash2 } from 'lucide-react';
-import { formatDisplayTime } from '../../../common/dateUtils';
-import { UI_MESSAGES } from '../../../constants/messages';
-import type { Activity } from '../routine.types';
+import { Check, Pencil, Trash2 } from "lucide-react";
+import { formatDisplayTime } from "../../../common/dateUtils";
+import { UI_MESSAGES } from "../../../constants/messages";
+import type { Activity } from "../routine.types";
 
 interface ActivityTimelineItemProps {
   activity: Activity;
@@ -30,10 +30,10 @@ export function ActivityTimelineItem({
         <div
           className={`w-0.5 flex-1 ${
             isFirst
-              ? 'bg-transparent'
+              ? "bg-transparent"
               : activity.is_completed
-                ? 'bg-brand'
-                : 'bg-surface-muted'
+                ? "bg-brand"
+                : "bg-surface-muted"
           }`}
         />
 
@@ -54,10 +54,10 @@ export function ActivityTimelineItem({
         <div
           className={`w-0.5 flex-1 ${
             isLast
-              ? 'bg-transparent'
+              ? "bg-transparent"
               : activity.is_completed
-                ? 'bg-brand'
-                : 'bg-surface-muted'
+                ? "bg-brand"
+                : "bg-surface-muted"
           }`}
         />
       </div>
@@ -65,8 +65,8 @@ export function ActivityTimelineItem({
       <div
         className={`mb-3 flex flex-1 items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 transition-colors ${
           isNext
-            ? 'border-warning/20 bg-warning-soft shadow-xs'
-            : 'border-border/80 bg-surface shadow-xs'
+            ? "border-warning/20 bg-warning-soft shadow-xs"
+            : "border-border/80 bg-surface shadow-xs"
         }`}
       >
         <div className="min-w-0 flex-1">
@@ -76,10 +76,10 @@ export function ActivityTimelineItem({
                 <span
                   className={`text-xs font-semibold tabular-nums ${
                     activity.is_completed
-                      ? 'text-brand'
+                      ? "text-brand"
                       : isNext
-                        ? 'text-warning'
-                        : 'text-content-muted'
+                        ? "text-warning"
+                        : "text-content-muted"
                   }`}
                 >
                   {formattedTime}
@@ -96,8 +96,8 @@ export function ActivityTimelineItem({
           <p
             className={`break-words text-sm font-semibold sm:text-base ${
               activity.is_completed
-                ? 'text-content-disabled line-through'
-                : 'text-content'
+                ? "text-content-disabled line-through"
+                : "text-content"
             }`}
           >
             {activity.name}
@@ -109,7 +109,7 @@ export function ActivityTimelineItem({
             type="button"
             onClick={() => onEdit(activity)}
             aria-label={`Ubah ${activity.name}`}
-            className="flex min-h-[44px] min-w-[40px] items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-surface-muted hover:text-content-secondary focus-visible:outline-2 focus-visible:outline-brand"
+            className="flex min-h-[44px]  min-w-10 items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-surface-muted hover:text-content-secondary focus-visible:outline-2 focus-visible:outline-brand"
           >
             <Pencil className="h-4 w-4" />
           </button>
@@ -118,7 +118,7 @@ export function ActivityTimelineItem({
             type="button"
             onClick={() => onDelete(activity)}
             aria-label={`Hapus ${activity.name}`}
-            className="flex min-h-[44px] min-w-[40px] items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-danger-soft hover:text-danger focus-visible:outline-2 focus-visible:outline-danger"
+            className="flex min-h-[44px]  min-w-10 items-center justify-center rounded-xl text-content-disabled transition-colors hover:bg-danger-soft hover:text-danger focus-visible:outline-2 focus-visible:outline-danger"
           >
             <Trash2 className="h-4 w-4" />
           </button>
@@ -127,7 +127,7 @@ export function ActivityTimelineItem({
             type="button"
             role="checkbox"
             aria-checked={activity.is_completed}
-            aria-label={`Tandai ${activity.name} ${activity.is_completed ? 'belum selesai' : 'selesai'}`}
+            aria-label={`Tandai ${activity.name} ${activity.is_completed ? "belum selesai" : "selesai"}`}
             onClick={() => void onToggle(activity)}
             className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl transition-transform active:scale-95 focus-visible:outline-2 focus-visible:outline-brand"
           >
@@ -139,8 +139,8 @@ export function ActivityTimelineItem({
               <span
                 className={`h-7 w-7 rounded-full border-2 ${
                   isNext
-                    ? 'border-warning bg-surface'
-                    : 'border-surface-muted bg-surface-subtle'
+                    ? "border-warning bg-surface"
+                    : "border-surface-muted bg-surface-subtle"
                 }`}
               />
             )}

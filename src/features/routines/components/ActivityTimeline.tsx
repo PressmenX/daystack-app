@@ -1,12 +1,12 @@
-import { ArrowUpDown, Plus } from 'lucide-react';
+import { ArrowUpDown, Plus } from "lucide-react";
 import {
   TimelineEmptyState,
   TimelineErrorState,
   TimelineLoadingState,
-} from '../../../common/components/StateView';
-import { UI_MESSAGES } from '../../../constants/messages';
-import type { Activity } from '../routine.types';
-import { ActivityTimelineItem } from './ActivityTimelineItem';
+} from "../../../common/components/StateView";
+import { UI_MESSAGES } from "../../../constants/messages";
+import type { Activity } from "../routine.types";
+import { ActivityTimelineItem } from "./ActivityTimelineItem";
 
 interface ActivityTimelineProps {
   activities: Activity[];
@@ -31,7 +31,8 @@ export function ActivityTimeline({
   onToggle,
   onOpenReorder,
 }: ActivityTimelineProps) {
-  const firstPendingId = activities.find((item) => !item.is_completed)?.id ?? null;
+  const firstPendingId =
+    activities.find((item) => !item.is_completed)?.id ?? null;
 
   return (
     <section aria-label={UI_MESSAGES.DASHBOARD.ROUTINE_SECTION_TITLE}>
@@ -45,7 +46,7 @@ export function ActivityTimeline({
             <button
               type="button"
               onClick={onOpenReorder}
-              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-brand transition-colors hover:bg-brand/10"
+              className="inline-flex  min-h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-brand transition-colors hover:bg-brand/10"
             >
               <span>{UI_MESSAGES.DASHBOARD.REORDER_BUTTON}</span>
               <ArrowUpDown className="h-4 w-4" />

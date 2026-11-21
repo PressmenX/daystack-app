@@ -1,20 +1,25 @@
-import { AlertCircle, Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { AlertCircle, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import {
   EMAIL_REGEX,
   MAX_USER_NAME_LENGTH,
   MIN_PASSWORD_LENGTH,
-} from '../../../constants/appConstants';
-import { UI_MESSAGES } from '../../../constants/messages';
-import { ROUTES } from '../../../constants/routes';
-import type { RegisterCredentials } from '../auth.types';
-import { useAuth } from '../useAuth';
-import { AuthShell } from './AuthShell';
+} from "../../../constants/appConstants";
+import { UI_MESSAGES } from "../../../constants/messages";
+import { ROUTES } from "../../../constants/routes";
+import type { RegisterCredentials } from "../auth.types";
+import { useAuth } from "../useAuth";
+import { AuthShell } from "./AuthShell";
 
 export function RegisterForm() {
-  const { register: registerAccount, isSubmitting, authError, clearAuthError } = useAuth();
+  const {
+    register: registerAccount,
+    isSubmitting,
+    authError,
+    clearAuthError,
+  } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -22,7 +27,7 @@ export function RegisterForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterCredentials>({
-    defaultValues: { name: '', email: '', password: '' },
+    defaultValues: { name: "", email: "", password: "" },
   });
 
   async function onSubmit(values: RegisterCredentials): Promise<void> {
@@ -35,7 +40,10 @@ export function RegisterForm() {
       subtitle={UI_MESSAGES.AUTH.REGISTER_SUBTITLE}
     >
       {authError ? (
-        <div role="alert" className="alert alert-error mb-5 rounded-2xl border border-danger/20 bg-danger-soft text-danger">
+        <div
+          role="alert"
+          className="alert alert-error mb-5 rounded-2xl border border-danger/20 bg-danger-soft text-danger"
+        >
           <AlertCircle className="h-5 w-5 shrink-0 text-danger" />
           <span className="text-sm font-medium">{authError}</span>
         </div>
@@ -43,7 +51,10 @@ export function RegisterForm() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
         <div>
-          <label htmlFor="register-name" className="mb-1.5 block text-sm font-semibold text-content-secondary">
+          <label
+            htmlFor="register-name"
+            className="mb-1.5 block text-sm font-semibold text-content-secondary"
+          >
             {UI_MESSAGES.AUTH.NAME_LABEL}
           </label>
           <input
@@ -52,13 +63,16 @@ export function RegisterForm() {
             autoComplete="name"
             maxLength={MAX_USER_NAME_LENGTH}
             placeholder={UI_MESSAGES.AUTH.NAME_PLACEHOLDER}
-            className="input input-bordered min-h-[46px] w-full rounded-xl border-border bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
-            {...register('name', { onChange: clearAuthError })}
+            className="input input-bordered min-h-11.5 w-full rounded-xl border-border bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
+            {...register("name", { onChange: clearAuthError })}
           />
         </div>
 
         <div>
-          <label htmlFor="register-email" className="mb-1.5 block text-sm font-semibold text-content-secondary">
+          <label
+            htmlFor="register-email"
+            className="mb-1.5 block text-sm font-semibold text-content-secondary"
+          >
             {UI_MESSAGES.AUTH.EMAIL_LABEL}
           </label>
           <input
@@ -66,10 +80,10 @@ export function RegisterForm() {
             type="email"
             autoComplete="email"
             placeholder={UI_MESSAGES.AUTH.EMAIL_PLACEHOLDER}
-            className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
-              errors.email ? 'border-danger' : 'border-border'
+            className={`input input-bordered min-h-11.5 w-full rounded-xl bg-surface-subtle/70 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+              errors.email ? "border-danger" : "border-border"
             }`}
-            {...register('email', {
+            {...register("email", {
               required: UI_MESSAGES.AUTH.EMAIL_REQUIRED,
               pattern: {
                 value: EMAIL_REGEX,
@@ -79,24 +93,29 @@ export function RegisterForm() {
             })}
           />
           {errors.email ? (
-            <p className="mt-1 text-xs font-medium text-danger">{errors.email.message}</p>
+            <p className="mt-1 text-xs font-medium text-danger">
+              {errors.email.message}
+            </p>
           ) : null}
         </div>
 
         <div>
-          <label htmlFor="register-password" className="mb-1.5 block text-sm font-semibold text-content-secondary">
+          <label
+            htmlFor="register-password"
+            className="mb-1.5 block text-sm font-semibold text-content-secondary"
+          >
             {UI_MESSAGES.AUTH.PASSWORD_LABEL}
           </label>
           <div className="relative">
             <input
               id="register-password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               autoComplete="new-password"
               placeholder={UI_MESSAGES.AUTH.PASSWORD_PLACEHOLDER}
-              className={`input input-bordered min-h-[46px] w-full rounded-xl bg-surface-subtle/70 pr-12 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
-                errors.password ? 'border-danger' : 'border-border'
+              className={`input input-bordered min-h-11.5 w-full rounded-xl bg-surface-subtle/70 pr-12 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none ${
+                errors.password ? "border-danger" : "border-border"
               }`}
-              {...register('password', {
+              {...register("password", {
                 required: UI_MESSAGES.AUTH.PASSWORD_REQUIRED,
                 minLength: {
                   value: MIN_PASSWORD_LENGTH,
@@ -108,29 +127,39 @@ export function RegisterForm() {
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              aria-label={showPassword ? 'Sembunyikan kata sandi' : 'Lihat kata sandi'}
-              className="absolute right-1 top-1/2 flex min-h-[40px] min-w-[40px] -translate-y-1/2 items-center justify-center rounded-lg text-content-disabled hover:text-content-secondary"
+              aria-label={
+                showPassword ? "Sembunyikan kata sandi" : "Lihat kata sandi"
+              }
+              className="absolute right-1 top-1/2 flex  min-h-10  min-w-10 -translate-y-1/2 items-center justify-center rounded-lg text-content-disabled hover:text-content-secondary"
             >
-              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
             </button>
           </div>
           {errors.password ? (
-            <p className="mt-1 text-xs font-medium text-danger">{errors.password.message}</p>
+            <p className="mt-1 text-xs font-medium text-danger">
+              {errors.password.message}
+            </p>
           ) : null}
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn mt-2 min-h-[48px] w-full rounded-xl border-none bg-brand text-sm font-semibold text-brand-content hover:bg-brand"
+          className="btn mt-2 min-h-12 w-full rounded-xl border-none bg-brand text-sm font-semibold text-brand-content hover:bg-brand"
         >
-          {isSubmitting ? <span className="loading loading-spinner loading-sm" /> : null}
+          {isSubmitting ? (
+            <span className="loading loading-spinner loading-sm" />
+          ) : null}
           <span>{UI_MESSAGES.AUTH.REGISTER_SUBMIT}</span>
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-content-muted">
-        {UI_MESSAGES.AUTH.HAVE_ACCOUNT}{' '}
+        {UI_MESSAGES.AUTH.HAVE_ACCOUNT}{" "}
         <Link
           to={ROUTES.LOGIN}
           onClick={clearAuthError}
