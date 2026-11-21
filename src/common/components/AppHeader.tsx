@@ -1,8 +1,8 @@
-import { ArrowLeft, LogOut, User } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-import { APP_BRAND_UPPER, APP_VERSION } from '../../constants/appConstants';
-import { UI_MESSAGES } from '../../constants/messages';
-import type { AuthUser } from '../common.types';
+import { ArrowLeft, LogOut, User } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { APP_BRAND_UPPER, APP_VERSION } from "../../constants/appConstants";
+import { UI_MESSAGES } from "../../constants/messages";
+import type { AuthUser } from "../common.types";
 
 interface AppHeaderProps {
   title: string;
@@ -21,8 +21,8 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
         setMenuOpen(false);
       }
     }
-    document.addEventListener('mousedown', handleOutsideClick);
-    return () => document.removeEventListener('mousedown', handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, []);
 
   return (
@@ -41,32 +41,12 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
           ) : null}
 
           <div className="flex items-center gap-2.5">
-            <div             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand text-brand-content shadow-sm">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                className="h-5 w-5"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4 7.5L12 3.5L20 7.5L12 11.5L4 7.5Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M4 12L12 16L20 12"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M4 16.5L12 20.5L20 16.5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand text-brand-content shadow-sm">
+              <img
+                src="/icon-192x192.png"
+                alt="Logo Daystack"
+                className="h-full w-full rounded-2xl object-cover"
+              />
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
@@ -90,9 +70,9 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label={UI_MESSAGES.HEADER.ACCOUNT}
             aria-expanded={menuOpen}
-            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-brand text-brand-content shadow-sm transition-colors hover:bg-brand focus-visible:outline-2 focus-visible:outline-brand"
+            className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-brand text-brand-content shadow-sm transition-all hover:brightness-70"
           >
-            <User className="h-5 w-5" />
+            <span>{user.name[0]}</span>
           </button>
 
           {menuOpen ? (
@@ -101,11 +81,13 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
                 <p className="truncate text-sm font-semibold text-content">
                   {user.name}
                 </p>
-                <p className="truncate text-xs text-content-muted">{user.email}</p>
+                <p className="truncate text-xs text-content-muted">
+                  {user.email}
+                </p>
               </div>
-                <div className="mt-2 px-2.5 text-[11px] font-medium text-content-disabled">
-                  Versi aplikasi v{APP_VERSION}
-                </div>
+              <div className="mt-2 px-2.5 text-[11px] font-medium text-content-disabled">
+                Versi aplikasi v{APP_VERSION}
+              </div>
               <button
                 type="button"
                 onClick={async () => {
