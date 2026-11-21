@@ -1,13 +1,3 @@
-let accessToken: string | null = null;
-
-export function setApiAccessToken(token: string | null): void {
-  accessToken = token;
-}
-
-export function getApiAccessToken(): string | null {
-  return accessToken;
-}
-
 export async function apiRequest<T>(
   url: string,
   options: RequestInit = {}
@@ -16,13 +6,10 @@ export async function apiRequest<T>(
   if (!headers.has('Content-Type') && options.body) {
     headers.set('Content-Type', 'application/json');
   }
-  if (accessToken) {
-    headers.set('Authorization', `Bearer ${accessToken}`);
-  }
-
   const response = await fetch(url, {
     ...options,
     headers,
+    credentials: 'same-origin',
   });
 
   const payload = (await response.json().catch(() => ({}))) as { error?: string } & T;

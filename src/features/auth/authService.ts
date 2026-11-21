@@ -8,7 +8,7 @@ import {
   SUPABASE_TABLES,
 } from '../../constants/appConstants';
 import { UI_MESSAGES } from '../../constants/messages';
-import { apiRequest, getApiAccessToken, setApiAccessToken } from '../../lib/apiClient';
+import { apiRequest } from '../../lib/apiClient';
 import { isSupabaseConfigured, supabase } from '../../lib/supabase';
 import type {
   AuthResponsePayload,
@@ -68,14 +68,10 @@ export const authService = {
       return mapSupabaseUser(data.session.user);
     }
 
-    if (!getApiAccessToken()) {
-      return null;
-    }
     try {
       const data = await apiRequest<{ user: AuthUser }>(API_ENDPOINTS.ME);
       return data.user;
     } catch {
-      setApiAccessToken(null);
       return null;
     }
   },
@@ -89,6 +85,15 @@ export const authService = {
       if (error || !data.user) {
         throw new Error(error?.message || UI_MESSAGES.AUTH.AUTH_FAILED);
       }
+      if (data.session) {
+        const { error: sessionError } = await supabase.auth.setSession({
+          access_token: data.session.access_token,
+          refresh_token: data.session.refresh_token,
+        });
+        if (sessionError) {
+          throw new Error(sessionError.message);
+        }
+      }
       await ensureSupabaseGlobalRoutine(data.user.id);
       return mapSupabaseUser(data.user);
     }
@@ -97,9 +102,6 @@ export const authService = {
       method: 'POST',
       body: JSON.stringify(credentials),
     });
-    if (payload.token) {
-      setApiAccessToken(payload.token);
-    }
     return payload.user;
   },
 
@@ -118,6 +120,13 @@ export const authService = {
         throw new Error(error?.message || UI_MESSAGES.AUTH.AUTH_FAILED);
       }
       if (data.session) {
+        const { error: sessionError } = await supabase.auth.setSession({
+          access_token: data.session.access_token,
+          refresh_token: data.session.refresh_token,
+        });
+        if (sessionError) {
+          throw new Error(sessionError.message);
+        }
         await ensureSupabaseGlobalRoutine(data.user.id);
       }
       return mapSupabaseUser(data.user);
@@ -127,9 +136,6 @@ export const authService = {
       method: 'POST',
       body: JSON.stringify(credentials),
     });
-    if (payload.token) {
-      setApiAccessToken(payload.token);
-    }
     return payload.user;
   },
 
@@ -142,10 +148,6 @@ export const authService = {
       return;
     }
 
-    try {
-      await apiRequest<{ ok: boolean }>(API_ENDPOINTS.LOGOUT, { method: 'POST' });
-    } finally {
-      setApiAccessToken(null);
-    }
+    await apiRequest<{ ok: boolean }>(API_ENDPOINTS.LOGOUT, { method: 'POST' });
   },
 };

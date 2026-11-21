@@ -114,13 +114,44 @@ function verifyToken(token: string): string | null {
   }
 }
 
+function getSessionCookie(req: Request): string | null {
+  const cookieHeader = req.headers.cookie;
+  if (!cookieHeader) {
+    return null;
+  }
+  const match = cookieHeader
+    .split(';')
+    .map((item) => item.trim())
+    .find((item) => item.startsWith('daystack_session='));
+  if (!match) {
+    return null;
+  }
+  return decodeURIComponent(match.slice(match.indexOf('=') + 1));
+}
+
+function setSessionCookie(res: Response, token: string): void {
+  res.setHeader(
+    'Set-Cookie',
+    `daystack_session=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${TOKEN_TTL_MS / 1000}`
+  );
+}
+
+function clearSessionCookie(res: Response): void {
+  res.setHeader(
+    'Set-Cookie',
+    'daystack_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0'
+  );
+}
+
 function authenticate(req: AuthenticatedRequest, res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+  const bearerToken =
+    authHeader && authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : null;
+  const token = bearerToken || getSessionCookie(req);
+  if (!token) {
     res.status(401).json({ error: 'Sesi tidak valid atau telah berakhir.' });
     return;
   }
-  const token = authHeader.slice(7).trim();
   const userId = verifyToken(token);
   if (!userId) {
     res.status(401).json({ error: 'Sesi tidak valid atau telah berakhir.' });
@@ -209,6 +240,7 @@ async function startServer(): Promise<void> {
     getOrCreateGlobalRoutine(user.id);
 
     const token = signToken(user.id);
+    setSessionCookie(res, token);
     res.status(201).json({
       token,
       user: { id: user.id, email: user.email, name: user.name },
@@ -231,6 +263,7 @@ async function startServer(): Promise<void> {
     }
     getOrCreateGlobalRoutine(user.id);
     const token = signToken(user.id);
+    setSessionCookie(res, token);
     res.json({
       token,
       user: { id: user.id, email: user.email, name: user.name },
@@ -243,6 +276,7 @@ async function startServer(): Promise<void> {
   });
 
   app.post('/api/auth/logout', (_req: Request, res: Response) => {
+    clearSessionCookie(res);
     res.json({ ok: true });
   });
 
