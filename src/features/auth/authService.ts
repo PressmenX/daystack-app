@@ -1,17 +1,18 @@
 import type { User } from '@supabase/supabase-js';
 import type { AuthUser } from '../../common/common.types';
 import {
-  API_ENDPOINTS,
   DEFAULT_GLOBAL_ROUTINE_NAME,
   ROUTINE_KIND,
   ROUTINE_MODE,
   SUPABASE_TABLES,
 } from '../../constants/appConstants';
 import { UI_MESSAGES } from '../../constants/messages';
-import { apiRequest } from '../../lib/apiClient';
-import { isSupabaseConfigured, supabase } from '../../lib/supabase';
+import {
+  isSupabaseConfigured,
+  supabase,
+  SUPABASE_CONFIG_ERROR,
+} from '../../lib/supabase';
 import type {
-  AuthResponsePayload,
   LoginCredentials,
   RegisterCredentials,
 } from './auth.types';
@@ -60,94 +61,76 @@ async function ensureSupabaseGlobalRoutine(userId: string): Promise<void> {
 
 export const authService = {
   async getSessionUser(): Promise<AuthUser | null> {
-    if (isSupabaseConfigured && supabase) {
-      const { data, error } = await supabase.auth.getSession();
-      if (error || !data.session?.user) {
-        return null;
-      }
-      return mapSupabaseUser(data.session.user);
-    }
-
-    try {
-      const data = await apiRequest<{ user: AuthUser }>(API_ENDPOINTS.ME);
-      return data.user;
-    } catch {
+    if (!isSupabaseConfigured || !supabase) {
       return null;
     }
+    const { data, error } = await supabase.auth.getSession();
+    if (error || !data.session?.user) {
+      return null;
+    }
+    return mapSupabaseUser(data.session.user);
   },
 
   async login(credentials: LoginCredentials): Promise<AuthUser> {
-    if (isSupabaseConfigured && supabase) {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: credentials.email.trim(),
-        password: credentials.password,
-      });
-      if (error || !data.user) {
-        throw new Error(error?.message || UI_MESSAGES.AUTH.AUTH_FAILED);
-      }
-      if (data.session) {
-        const { error: sessionError } = await supabase.auth.setSession({
-          access_token: data.session.access_token,
-          refresh_token: data.session.refresh_token,
-        });
-        if (sessionError) {
-          throw new Error(sessionError.message);
-        }
-      }
-      await ensureSupabaseGlobalRoutine(data.user.id);
-      return mapSupabaseUser(data.user);
+    if (!isSupabaseConfigured || !supabase) {
+      throw new Error(SUPABASE_CONFIG_ERROR);
     }
-
-    const payload = await apiRequest<AuthResponsePayload>(API_ENDPOINTS.LOGIN, {
-      method: 'POST',
-      body: JSON.stringify(credentials),
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: credentials.email.trim(),
+      password: credentials.password,
     });
-    return payload.user;
+    if (error || !data.user) {
+      throw new Error(error?.message || UI_MESSAGES.AUTH.AUTH_FAILED);
+    }
+    if (data.session) {
+      const { error: sessionError } = await supabase.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
+      if (sessionError) {
+        throw new Error(sessionError.message);
+      }
+    }
+    await ensureSupabaseGlobalRoutine(data.user.id);
+    return mapSupabaseUser(data.user);
   },
 
   async register(credentials: RegisterCredentials): Promise<AuthUser> {
-    if (isSupabaseConfigured && supabase) {
-      const { data, error } = await supabase.auth.signUp({
-        email: credentials.email.trim(),
-        password: credentials.password,
-        options: {
-          data: {
-            name: credentials.name?.trim() || '',
-          },
-        },
-      });
-      if (error || !data.user) {
-        throw new Error(error?.message || UI_MESSAGES.AUTH.AUTH_FAILED);
-      }
-      if (data.session) {
-        const { error: sessionError } = await supabase.auth.setSession({
-          access_token: data.session.access_token,
-          refresh_token: data.session.refresh_token,
-        });
-        if (sessionError) {
-          throw new Error(sessionError.message);
-        }
-        await ensureSupabaseGlobalRoutine(data.user.id);
-      }
-      return mapSupabaseUser(data.user);
+    if (!isSupabaseConfigured || !supabase) {
+      throw new Error(SUPABASE_CONFIG_ERROR);
     }
-
-    const payload = await apiRequest<AuthResponsePayload>(API_ENDPOINTS.REGISTER, {
-      method: 'POST',
-      body: JSON.stringify(credentials),
+    const { data, error } = await supabase.auth.signUp({
+      email: credentials.email.trim(),
+      password: credentials.password,
+      options: {
+        data: {
+          name: credentials.name?.trim() || '',
+        },
+      },
     });
-    return payload.user;
+    if (error || !data.user) {
+      throw new Error(error?.message || UI_MESSAGES.AUTH.AUTH_FAILED);
+    }
+    if (data.session) {
+      const { error: sessionError } = await supabase.auth.setSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
+      if (sessionError) {
+        throw new Error(sessionError.message);
+      }
+      await ensureSupabaseGlobalRoutine(data.user.id);
+    }
+    return mapSupabaseUser(data.user);
   },
 
   async logout(): Promise<void> {
-    if (isSupabaseConfigured && supabase) {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        throw new Error(error.message);
-      }
-      return;
+    if (!isSupabaseConfigured || !supabase) {
+      throw new Error(SUPABASE_CONFIG_ERROR);
     }
-
-    await apiRequest<{ ok: boolean }>(API_ENDPOINTS.LOGOUT, { method: 'POST' });
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      throw new Error(error.message);
+    }
   },
 };

@@ -11,6 +11,9 @@ export const isSupabaseConfigured = Boolean(
   supabaseAnonKey.trim().length > 0
 );
 
+export const SUPABASE_CONFIG_ERROR =
+  'Konfigurasi Supabase belum diisi. Tambahkan VITE_SUPABASE_URL dan VITE_SUPABASE_ANON_KEY pada berkas .env.';
+
 export const supabase: SupabaseClient | null = isSupabaseConfigured
   ? createClient(supabaseUrl!.trim(), supabaseAnonKey!.trim(), {
       auth: {

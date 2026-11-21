@@ -1,4 +1,4 @@
-import { ArrowLeft, LogOut, User } from "lucide-react";
+import { ArrowLeft, LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { APP_BRAND_UPPER, APP_VERSION } from "../../constants/appConstants";
 import { UI_MESSAGES } from "../../constants/messages";
