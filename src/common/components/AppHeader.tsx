@@ -1,6 +1,6 @@
 import { ArrowLeft, LogOut, User } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { APP_BRAND_UPPER } from '../../constants/appConstants';
+import { APP_BRAND_UPPER, APP_VERSION } from '../../constants/appConstants';
 import { UI_MESSAGES } from '../../constants/messages';
 import type { AuthUser } from '../common.types';
 
@@ -69,9 +69,14 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
               </svg>
             </div>
             <div className="min-w-0">
-              <p className="text-[10px] font-bold tracking-[0.14em] text-brand">
-                {APP_BRAND_UPPER}
-              </p>
+              <div className="flex items-center gap-1.5">
+                <p className="text-xs font-bold tracking-[0.14em] text-brand">
+                  {APP_BRAND_UPPER}
+                </p>
+                <span className="badge badge-outline badge-xs text-[10px] font-semibold text-content-disabled">
+                  v{APP_VERSION}
+                </span>
+              </div>
               <h1 className="truncate font-display text-base font-bold text-content sm:text-lg">
                 {title}
               </h1>
@@ -98,6 +103,9 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
                 </p>
                 <p className="truncate text-xs text-content-muted">{user.email}</p>
               </div>
+                <div className="mt-2 px-2.5 text-[11px] font-medium text-content-disabled">
+                  Versi aplikasi v{APP_VERSION}
+                </div>
               <button
                 type="button"
                 onClick={async () => {

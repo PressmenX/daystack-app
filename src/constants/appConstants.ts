@@ -1,3 +1,4 @@
+export { version as APP_VERSION } from "../../package.json"
 export const APP_NAME = 'Daystack';
 export const APP_BRAND_UPPER = 'DAYSTACK';
 

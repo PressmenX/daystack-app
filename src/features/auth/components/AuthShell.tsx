@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { APP_BRAND_UPPER, APP_NAME } from '../../../constants/appConstants';
+import { APP_BRAND_UPPER, APP_NAME, APP_VERSION } from '../../../constants/appConstants';
 
 interface AuthShellProps {
   title: string;
@@ -19,9 +19,14 @@ export function AuthShell({ title, subtitle, children }: AuthShellProps) {
               className="h-full w-full rounded-2xl object-cover"
             />
           </div>
-          <p className="mt-3 text-[11px] font-bold tracking-[0.18em] text-brand">
-            {APP_BRAND_UPPER}
-          </p>
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <p className="text-[11px] font-bold tracking-[0.18em] text-brand">
+              {APP_BRAND_UPPER}
+            </p>
+            <span className="rounded-full border border-border bg-surface px-2 py-0.5 text-[10px] font-semibold text-content-muted">
+              v{APP_VERSION}
+            </span>
+          </div>
           <h1 className="mt-1.5 font-display text-2xl font-extrabold tracking-tight text-content">
             {title}
           </h1>
