@@ -1,0 +1,6 @@
+{
+  "name": "Daystack",
+  "description": "Aplikasi penyusun rutinitas harian berbasis habit stacking dengan tampilan timeline dan checklist.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
