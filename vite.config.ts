@@ -13,6 +13,10 @@ export default defineConfig(() => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'auto',
+        devOptions: {
+          enabled: true,
+          type: 'module',
+        },
         includeAssets: ['icon-180x180.png', 'icon-192x192.png', 'icon-512x512.png'],
         manifest: {
           name: 'Daystack',
