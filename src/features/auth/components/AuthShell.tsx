@@ -13,23 +13,11 @@ export function AuthShell({ title, subtitle, children }: AuthShellProps) {
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center text-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-brand-content shadow-sm">
-            <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
-              <path d="M4 7.5L12 3.5L20 7.5L12 11.5L4 7.5Z" fill="currentColor" />
-              <path
-                d="M4 12L12 16L20 12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M4 16.5L12 20.5L20 16.5"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <img
+              src="/icon-192x192.png"
+              alt="Logo Daystack"
+              className="h-full w-full rounded-2xl object-cover"
+            />
           </div>
           <p className="mt-3 text-[11px] font-bold tracking-[0.18em] text-brand">
             {APP_BRAND_UPPER}
