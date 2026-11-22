@@ -98,7 +98,7 @@ export function ActivityTimelineItem({
       <div
         className={`mb-3 flex flex-1 items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 transition-colors ${
           activity.is_completed
-            ? "border-brand/50 bg-brand/10 shadow-none opacity-70"
+            ? "border-brand/50 bg-brand/10 shadow-none opacity-50"
             : isNext
               ? "border-warning/50 bg-warning-soft shadow-warning/40 shadow-lg border-3"
               : "border-border/80 bg-surface shadow-xs"

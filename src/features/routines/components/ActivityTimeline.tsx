@@ -86,7 +86,7 @@ export function ActivityTimeline({
           <button
             type="button"
             onClick={onAdd}
-            className="btn hidden min-h-[42px] rounded-xl border-none bg-neutral px-4 text-sm font-semibold text-neutral-content hover:bg-neutral lg:inline-flex"
+            className="btn hidden min-h-10.5 rounded-xl border-none bg-neutral px-4 text-sm font-semibold text-neutral-content hover:bg-neutral lg:inline-flex"
           >
             <Plus className="h-4 w-4" />
             <span>{UI_MESSAGES.DASHBOARD.ADD_BUTTON}</span>
