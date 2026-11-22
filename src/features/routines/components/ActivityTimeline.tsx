@@ -73,7 +73,7 @@ export function ActivityTimeline({
   const isEditMode = mode === 'edit';
   const timelineActivities = isEditMode ? draftActivities : activities;
   const firstPendingId =
-    activities.find((item) => !item.is_completed)?.id ?? null;
+    timelineActivities.find((item) => !item.is_completed)?.id ?? null;
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -130,6 +130,7 @@ export function ActivityTimeline({
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
+            autoScroll={false}
             onDragEnd={onDragEnd}
           >
             <SortableContext
