@@ -47,6 +47,7 @@ export const UI_MESSAGES = {
     ROUTINE_SECTION_TITLE: 'Global Routines',
     REORDER_BUTTON: 'Urutkan',
     ADD_BUTTON: 'Tambah Aktivitas',
+    CHECK_MODE_TOGGLE: 'Centang',
     NEXT_BADGE: 'BERIKUTNYA',
   },
   REORDER: {

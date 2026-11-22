@@ -1,4 +1,5 @@
-import { ArrowUpDown, Plus } from "lucide-react";
+import { ArrowUpDown, Check, ChevronDown, Plus } from "lucide-react";
+import { useState } from "react";
 import {
   TimelineEmptyState,
   TimelineErrorState,
@@ -31,25 +32,45 @@ export function ActivityTimeline({
   onToggle,
   onOpenReorder,
 }: ActivityTimelineProps) {
+  const [isCheckMode, setIsCheckMode] = useState(false);
   const firstPendingId =
     activities.find((item) => !item.is_completed)?.id ?? null;
 
   return (
     <section aria-label={UI_MESSAGES.DASHBOARD.ROUTINE_SECTION_TITLE}>
-      <div className="mb-4 flex items-center justify-between gap-3">
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="font-display text-lg font-extrabold text-content sm:text-xl">
           {UI_MESSAGES.DASHBOARD.ROUTINE_SECTION_TITLE}
         </h2>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-start gap-2">
+          {activities.length > 0 ? (
+            <button
+              type="button"
+              aria-pressed={isCheckMode}
+              onClick={() => setIsCheckMode((active) => !active)}
+              className={`inline-flex min-h-8 items-center gap-1.5 rounded-full border px-3 text-xs font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-brand ${
+                isCheckMode
+                  ? "border-brand/50 bg-brand/10 text-brand"
+                  : "border-border bg-surface text-content-secondary hover:bg-surface-subtle"
+              }`}
+            >
+              <span className="flex h-3.5 w-3.5 items-center justify-center rounded-[3px] border border-current">
+                <Check className="h-2.5 w-2.5" />
+              </span>
+              <span>{UI_MESSAGES.DASHBOARD.CHECK_MODE_TOGGLE}</span>
+            </button>
+          ) : null}
+
           {activities.length >= 2 ? (
             <button
               type="button"
               onClick={onOpenReorder}
-              className="inline-flex  min-h-10 items-center gap-1.5 rounded-xl px-3 text-sm font-semibold text-brand transition-colors hover:bg-brand/10"
+              className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-xs font-semibold text-content-secondary transition-colors hover:bg-surface-subtle focus-visible:outline-2 focus-visible:outline-brand"
             >
+              <ArrowUpDown className="h-3.5 w-3.5" />
               <span>{UI_MESSAGES.DASHBOARD.REORDER_BUTTON}</span>
-              <ArrowUpDown className="h-4 w-4" />
+              <ChevronDown className="h-3.5 w-3.5" />
             </button>
           ) : null}
 
@@ -83,6 +104,7 @@ export function ActivityTimeline({
               isFirst={index === 0}
               isLast={index === activities.length - 1}
               isNext={activity.id === firstPendingId}
+              isCheckMode={isCheckMode}
               onToggle={onToggle}
               onEdit={onEdit}
               onDelete={onDelete}

@@ -83,7 +83,7 @@ export function SortableActivityItem({
       >
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="truncate font-display text-sm font-bold text-content sm:text-base">
+            <p className="truncate max-w-40 font-display text-sm font-bold text-content sm:text-base">
               {activity.name}
             </p>
             {isDragging ? (
