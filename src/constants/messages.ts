@@ -54,6 +54,7 @@ export const UI_MESSAGES = {
     DRAGGING_BADGE: 'DIGESER',
     DRAG_ACTIVITY_LABEL: 'Geser urutan',
     DRAG_MODE_INFO: 'Mode urutkan aktif. Tahan dan geser pegangan titik enam (⋮⋮) untuk mengatur ulang urutan, lalu tekan Simpan.',
+    EDIT_MODE_INFO: 'Mode edit aktif. Ketuk titik untuk menandai atau membatalkan selesai. Gunakan ikon pada kartu untuk mengubah atau menghapus aktivitas. Ketuk di luar kartu untuk keluar dari mode edit.',
     EDIT_ACTIVITY_LABEL: 'Ubah',
     DELETE_ACTIVITY_LABEL: 'Hapus',
     TOGGLE_ACTIVITY_LABEL: 'Ubah status selesai',

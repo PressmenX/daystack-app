@@ -35,6 +35,7 @@ export function ActivityTimelineItem({
     isDragging,
   } = useSortable({ id: activity.id, disabled: mode !== 'reorder' });
   const formattedTime = formatDisplayTime(activity.start_time);
+  const timelineLineColor = activity.is_completed ? 'bg-brand' : 'bg-surface-muted';
 
   return (
     <li
@@ -43,19 +44,13 @@ export function ActivityTimelineItem({
         transform: CSS.Transform.toString(transform),
         transition,
       }}
-      className={`relative flex items-stretch gap-3.5 sm:gap-4 ${
+      className={`relative mb-3 flex items-stretch gap-3.5 sm:gap-4 ${
         isDragging ? 'z-20' : 'z-10'
       }`}
     >
       <div className="relative flex w-6 shrink-0 flex-col items-center">
         <div
-          className={`w-[3px] flex-1 ${
-            isFirst
-              ? 'bg-transparent'
-              : activity.is_completed
-                ? 'bg-brand'
-                : 'bg-surface-muted'
-          }`}
+          className={`w-0.75 flex-1 ${isFirst ? 'bg-transparent' : timelineLineColor}`}
         />
 
         <div className="relative z-10 flex h-5 w-5 shrink-0 items-center justify-center">
@@ -68,6 +63,7 @@ export function ActivityTimelineItem({
           {mode === 'edit' ? (
             <button
               type="button"
+              data-mode-control
               role="checkbox"
               aria-checked={activity.is_completed}
               aria-label={`${UI_MESSAGES.DASHBOARD.TOGGLE_ACTIVITY_LABEL} ${activity.name}`}
@@ -100,18 +96,13 @@ export function ActivityTimelineItem({
         </div>
 
         <div
-          className={`w-[3px] flex-1 ${
-            isLast
-              ? 'bg-transparent'
-              : activity.is_completed
-                ? 'bg-brand'
-                : 'bg-surface-muted'
-          }`}
+          className={`w-0.75 flex-1 ${isLast ? 'bg-transparent' : timelineLineColor}`}
         />
       </div>
 
       <div
-        className={`mb-3 flex min-h-16 flex-1 items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 transition-all ${
+        data-activity-card
+        className={`flex min-h-16 flex-1 items-center justify-between gap-3 rounded-2xl border px-4 py-3.5 transition-all ${
           isDragging
             ? 'border-brand/50 bg-surface shadow-lg ring-2 ring-brand/20'
             : activity.is_completed
@@ -149,7 +140,7 @@ export function ActivityTimelineItem({
             <p
               className={`wrap-break-word text-sm font-semibold sm:text-base ${
                 activity.is_completed
-                  ? 'text-brand line-through decoration-2 decoration-brand/50'
+                  ? 'text-brand line-through decoration-2 decoration-brand/50 opacity-30'
                   : 'text-content'
               }`}
             >
@@ -200,6 +191,15 @@ export function ActivityTimelineItem({
           </button>
         ) : null}
       </div>
+
+      {!isLast ? (
+        <span
+          aria-hidden="true"
+          className="absolute -bottom-3 left-0 flex h-3 w-6 justify-center"
+        >
+          <span className={`h-full w-0.75 ${timelineLineColor}`} />
+        </span>
+      ) : null}
     </li>
   );
 }

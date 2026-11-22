@@ -13,7 +13,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { ArrowUpDown, Check, Pencil, Plus } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ConfirmModal } from '../../../common/components/ConfirmModal';
 import {
   TimelineEmptyState,
@@ -24,7 +24,7 @@ import { UI_MESSAGES } from '../../../constants/messages';
 import type { Activity, RoutineWorkspaceMode } from '../routine.types';
 import { useActivityOrderDraft } from '../useActivityOrderDraft';
 import { ActivityTimelineItem } from './ActivityTimelineItem';
-import { ReorderModePopup } from './ReorderModePopup';
+import { ModeInfoPopup } from './ModeInfoPopup';
 
 interface ActivityTimelineProps {
   activities: Activity[];
@@ -92,6 +92,38 @@ export function ActivityTimeline({
     activities.find((item) => !item.is_completed)?.id ?? null;
   const timelineActivities = isReorderMode ? draftActivities : activities;
 
+  useEffect(() => {
+    if (mode === 'view') {
+      return;
+    }
+
+    function handleOutsidePointerDown(event: PointerEvent): void {
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+
+      if (
+        event.target.closest(
+          '[data-activity-card], [data-mode-control], [role="dialog"]',
+        )
+      ) {
+        return;
+      }
+
+      if (mode === 'reorder' && hasChanges) {
+        setConfirmDiscardOpen(true);
+        return;
+      }
+
+      resetDraft();
+      onModeChange('view');
+    }
+
+    document.addEventListener('pointerdown', handleOutsidePointerDown);
+    return () =>
+      document.removeEventListener('pointerdown', handleOutsidePointerDown);
+  }, [hasChanges, mode, onModeChange, resetDraft]);
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
     useSensor(TouchSensor, {
@@ -144,7 +176,11 @@ export function ActivityTimeline({
 
   return (
     <section aria-label={UI_MESSAGES.DASHBOARD.ROUTINE_SECTION_TITLE}>
-      {isReorderMode ? <ReorderModePopup /> : null}
+      {mode === 'edit' ? (
+        <ModeInfoPopup message={UI_MESSAGES.DASHBOARD.EDIT_MODE_INFO} />
+      ) : isReorderMode ? (
+        <ModeInfoPopup message={UI_MESSAGES.DASHBOARD.DRAG_MODE_INFO} />
+      ) : null}
 
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="font-display text-lg font-extrabold text-content sm:text-xl">
@@ -155,6 +191,7 @@ export function ActivityTimeline({
           <div className="flex items-center gap-2">
             <button
               type="button"
+              data-mode-control
               onClick={handleCancelReorder}
               disabled={isMutating}
               className="btn min-h-10 rounded-full border border-border bg-surface px-3 text-xs font-semibold text-content-secondary hover:bg-surface-subtle disabled:opacity-50"
@@ -163,6 +200,7 @@ export function ActivityTimeline({
             </button>
             <button
               type="button"
+              data-mode-control
               onClick={() => void handleSaveOrder()}
               disabled={isMutating}
               className="btn min-h-10 rounded-full border-none bg-neutral px-3 text-xs font-semibold text-neutral-content hover:bg-neutral disabled:opacity-50"
@@ -193,10 +231,12 @@ export function ActivityTimeline({
             ) : null}
 
             <div className="hidden flex-col items-stretch gap-1 lg:flex">
-              <EditModeButton
-                isActive={mode === 'edit'}
-                onClick={toggleEditMode}
-              />
+              {mode !== 'edit' ? (
+                <EditModeButton
+                  isActive={false}
+                  onClick={toggleEditMode}
+                />
+              ) : null}
               <button
                 type="button"
                 onClick={onAdd}
@@ -251,10 +291,12 @@ export function ActivityTimeline({
 
       {mode !== 'reorder' ? (
         <div className="fixed bottom-6 right-5 z-30 flex flex-col items-center gap-3 lg:hidden">
-          <EditModeButton
-            isActive={mode === 'edit'}
-            onClick={toggleEditMode}
-          />
+          {mode !== 'edit' ? (
+            <EditModeButton
+              isActive={false}
+              onClick={toggleEditMode}
+            />
+          ) : null}
           <button
             type="button"
             onClick={onAdd}
