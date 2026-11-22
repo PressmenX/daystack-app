@@ -5,6 +5,7 @@ import { activityService } from './activityService';
 import type {
   Activity,
   ActivityFormValues,
+  BulkActivityMutationResult,
   Routine,
   RoutineProgress,
 } from './routine.types';
@@ -100,7 +101,7 @@ export function useGlobalRoutine(userId: string) {
   );
 
   const toggleActivity = useCallback(
-    async (activity: Activity): Promise<void> => {
+    async (activity: Activity): Promise<boolean> => {
       const nextCompleted = !activity.is_completed;
       setActivities((prev) =>
         prev.map((item) =>
@@ -116,6 +117,7 @@ export function useGlobalRoutine(userId: string) {
         setActivities((prev) =>
           prev.map((item) => (item.id === activity.id ? updated : item))
         );
+        return true;
       } catch (err) {
         setActivities((prev) =>
           prev.map((item) =>
@@ -124,6 +126,129 @@ export function useGlobalRoutine(userId: string) {
         );
         const message = err instanceof Error ? err.message : UI_MESSAGES.ACTIVITY.MUTATION_ERROR;
         showToast(message, 'error');
+        return false;
+      }
+    },
+    [showToast, userId]
+  );
+
+  const completeActivities = useCallback(
+    async (activityIds: string[]): Promise<BulkActivityMutationResult> => {
+      const selectedIds = new Set(activityIds);
+      const selectedActivities = activities.filter((item) => selectedIds.has(item.id));
+      if (selectedActivities.length === 0) {
+        return { failedIds: [] };
+      }
+
+      setIsMutating(true);
+      setActivities((prev) =>
+        prev.map((item) =>
+          selectedIds.has(item.id) ? { ...item, is_completed: true } : item
+        )
+      );
+
+      try {
+        const results = await Promise.allSettled(
+          selectedActivities.map((item) =>
+            activityService.toggleActivityCompletion(item.id, userId, true)
+          )
+        );
+        const updatedActivities = new Map<string, Activity>();
+        const failedActivities: Array<{ id: string; reason: unknown }> = [];
+
+        results.forEach((result, index) => {
+          const activity = selectedActivities[index];
+          if (result.status === 'fulfilled') {
+            updatedActivities.set(activity.id, result.value);
+          } else {
+            failedActivities.push({ id: activity.id, reason: result.reason });
+          }
+        });
+
+        const failedIds = new Set(failedActivities.map((item) => item.id));
+        const previousCompletion = new Map(
+          selectedActivities.map((item) => [item.id, item.is_completed])
+        );
+        setActivities((prev) =>
+          prev.map((item) => {
+            const updated = updatedActivities.get(item.id);
+            if (updated) {
+              return updated;
+            }
+            if (failedIds.has(item.id)) {
+              return {
+                ...item,
+                is_completed: previousCompletion.get(item.id) ?? item.is_completed,
+              };
+            }
+            return item;
+          })
+        );
+
+        if (failedActivities.length > 0) {
+          const firstFailure = failedActivities[0].reason;
+          showToast(
+            firstFailure instanceof Error
+              ? firstFailure.message
+              : UI_MESSAGES.ACTIVITY.MUTATION_ERROR,
+            'error'
+          );
+        } else {
+          showToast(UI_MESSAGES.DASHBOARD.BULK_COMPLETE_SUCCESS, 'success');
+        }
+
+        return { failedIds: [...failedIds] };
+      } finally {
+        setIsMutating(false);
+      }
+    },
+    [activities, showToast, userId]
+  );
+
+  const deleteActivities = useCallback(
+    async (activityIds: string[]): Promise<BulkActivityMutationResult> => {
+      if (activityIds.length === 0) {
+        return { failedIds: [] };
+      }
+
+      setIsMutating(true);
+      try {
+        const results = await Promise.allSettled(
+          activityIds.map((id) => activityService.deleteActivity(id, userId))
+        );
+        const deletedIds = new Set<string>();
+        const failedActivities: Array<{ id: string; reason: unknown }> = [];
+
+        results.forEach((result, index) => {
+          const activityId = activityIds[index];
+          if (result.status === 'fulfilled') {
+            deletedIds.add(activityId);
+          } else {
+            failedActivities.push({ id: activityId, reason: result.reason });
+          }
+        });
+
+        setActivities((prev) =>
+          prev
+            .filter((item) => !deletedIds.has(item.id))
+            .map((item, index) => ({ ...item, position: index }))
+        );
+
+        if (failedActivities.length > 0) {
+          const firstFailure = failedActivities[0].reason;
+          showToast(
+            firstFailure instanceof Error
+              ? firstFailure.message
+              : UI_MESSAGES.ACTIVITY.MUTATION_ERROR,
+            'error'
+          );
+        } else {
+          showToast(UI_MESSAGES.DASHBOARD.BULK_DELETE_SUCCESS, 'success');
+        }
+
+        return { failedIds: failedActivities.map((item) => item.id) };
+      } finally {
+        setIsMutating(false);
       }
     },
     [showToast, userId]
@@ -186,7 +311,9 @@ export function useGlobalRoutine(userId: string) {
     addActivity,
     updateActivity,
     toggleActivity,
+    completeActivities,
     deleteActivity,
+    deleteActivities,
     saveOrder,
   };
 }

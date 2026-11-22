@@ -1,4 +1,4 @@
-export type RoutineWorkspaceMode = 'view' | 'edit' | 'reorder';
+export type RoutineWorkspaceMode = 'view' | 'edit';
 
 export interface Routine {
   id: string;
@@ -24,6 +24,10 @@ export interface Activity {
 export interface ActivityFormValues {
   name: string;
   start_time: string;
+}
+
+export interface BulkActivityMutationResult {
+  failedIds: string[];
 }
 
 export interface RoutineProgress {

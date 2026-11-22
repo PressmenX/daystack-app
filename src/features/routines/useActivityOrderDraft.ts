@@ -12,7 +12,26 @@ export function useActivityOrderDraft(
   useEffect(() => {
     if (!isActive) {
       setDraftActivities(activities);
+      return;
     }
+
+    setDraftActivities((current) => {
+      const currentActivities = new Map(activities.map((activity) => [activity.id, activity]));
+      const orderedIds = new Set<string>();
+      const orderedActivities = current.flatMap((activity) => {
+        const updated = currentActivities.get(activity.id);
+        if (!updated) {
+          return [];
+        }
+        orderedIds.add(updated.id);
+        return [updated];
+      });
+
+      return [
+        ...orderedActivities,
+        ...activities.filter((activity) => !orderedIds.has(activity.id)),
+      ];
+    });
   }, [activities, isActive]);
 
   const hasChanges = useMemo(

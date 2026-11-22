@@ -1,4 +1,4 @@
-import { Clock, X } from "lucide-react";
+import { Check, Clock, Trash2, X } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -13,6 +13,8 @@ interface ActivityFormModalProps {
   editingActivity: Activity | null;
   isSubmitting: boolean;
   onSubmitValues: (values: ActivityFormValues) => Promise<boolean>;
+  onToggleCompletion: (activity: Activity) => Promise<boolean>;
+  onRequestDelete: (activity: Activity) => void;
   onClose: () => void;
 }
 
@@ -21,6 +23,8 @@ export function ActivityFormModal({
   editingActivity,
   isSubmitting,
   onSubmitValues,
+  onToggleCompletion,
+  onRequestDelete,
   onClose,
 }: ActivityFormModalProps) {
   const {
@@ -54,6 +58,17 @@ export function ActivityFormModal({
   async function handleFormSubmit(values: ActivityFormValues): Promise<void> {
     const ok = await onSubmitValues(values);
     if (ok) {
+      onClose();
+    }
+  }
+
+  async function handleToggleCompletion(): Promise<void> {
+    if (!editingActivity) {
+      return;
+    }
+
+    const updated = await onToggleCompletion(editingActivity);
+    if (updated) {
       onClose();
     }
   }
@@ -155,6 +170,36 @@ export function ActivityFormModal({
               {UI_MESSAGES.ACTIVITY.START_TIME_HINT}
             </p>
           </div>
+
+          {isEditing && editingActivity ? (
+            <div className="flex gap-2.5">
+              <button
+                type="button"
+                onClick={() => void handleToggleCompletion()}
+                disabled={isSubmitting}
+                className="btn min-h-11 flex-1 rounded-xl border border-brand/30 bg-brand/10 text-brand hover:bg-brand/15"
+              >
+                <Check className="h-4 w-4" />
+                <span>
+                  {editingActivity.is_completed
+                    ? UI_MESSAGES.ACTIVITY.MARK_UNDONE_ACTION
+                    : UI_MESSAGES.ACTIVITY.MARK_DONE_ACTION}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  onRequestDelete(editingActivity);
+                }}
+                disabled={isSubmitting}
+                aria-label={UI_MESSAGES.ACTIVITY.DELETE_ACTION}
+                className="btn min-h-11 min-w-11 rounded-xl border border-danger/20 bg-danger-soft text-danger hover:bg-danger/15"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            </div>
+          ) : null}
 
           <div className="modal-action mt-6 flex gap-2.5">
             <button
