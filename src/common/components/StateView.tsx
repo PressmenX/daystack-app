@@ -9,20 +9,41 @@ export function TimelineLoadingState({
   message = UI_MESSAGES.STATES.LOADING,
 }: LoadingStateProps) {
   return (
-    <div className="space-y-3" aria-busy="true" aria-label={message}>
-      {[1, 2, 3].map((item) => (
-        <div
-          key={item}
-          className="flex items-center gap-4 rounded-2xl border border-border/70 bg-surface p-4"
-        >
-          <div className="skeleton h-6 w-6 shrink-0 rounded-full" />
-          <div className="flex-1 space-y-2">
-            <div className="skeleton h-3 w-14 rounded" />
-            <div className="skeleton h-4 w-44 rounded" />
-          </div>
-          <div className="skeleton h-7 w-7 shrink-0 rounded-full" />
-        </div>
-      ))}
+    <div aria-busy="true" aria-label={message}>
+      <ol className="list-none p-0">
+        {[0, 1, 2].map((item) => (
+          <li
+            key={item}
+            className="relative flex items-stretch gap-3.5 sm:gap-4"
+          >
+            <div className="relative flex w-6 shrink-0 flex-col items-center">
+              <div
+                className={`w-0.5 flex-1 ${
+                  item === 0 ? "bg-transparent" : "bg-surface-muted"
+                }`}
+              />
+              <div className="skeleton relative z-10 h-4 w-4 shrink-0 rounded-full" />
+              <div
+                className={`w-0.5 flex-1 ${
+                  item === 2 ? "bg-transparent" : "bg-surface-muted"
+                }`}
+              />
+            </div>
+
+            <div className="mb-3 flex min-h-[72px] flex-1 items-center justify-between gap-3 rounded-2xl border border-border/80 bg-surface px-4 py-3.5">
+              <div className="min-w-0 flex-1 space-y-2">
+                <div className="skeleton h-3 w-14 rounded" />
+                <div
+                  className={`skeleton h-4 rounded ${
+                    item === 1 ? "w-36" : "w-44"
+                  }`}
+                />
+              </div>
+             
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }
