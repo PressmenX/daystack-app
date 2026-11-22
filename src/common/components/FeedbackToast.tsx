@@ -1,5 +1,6 @@
 import { AlertCircle, CheckCircle2, X } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import { UI_MESSAGES } from '../../constants/messages';
 import { useToast } from '../useToast';
 
 export function FeedbackToast() {
@@ -34,7 +35,7 @@ export function FeedbackToast() {
             <button
               type="button"
               onClick={() => dismissToast(toast.id)}
-              aria-label="Tutup"
+              aria-label={UI_MESSAGES.TOAST.DISMISS}
               className="flex min-h-9 min-w-9 items-center justify-center rounded-lg text-content-muted transition-colors hover:bg-black/5"
             >
               <X className="h-4 w-4" />

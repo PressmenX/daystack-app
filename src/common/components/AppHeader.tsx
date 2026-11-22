@@ -1,4 +1,4 @@
-import { ArrowLeft, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { APP_BRAND_UPPER, APP_VERSION } from "../../constants/appConstants";
 import { UI_MESSAGES } from "../../constants/messages";
@@ -8,10 +8,9 @@ interface AppHeaderProps {
   title: string;
   user: AuthUser;
   onLogout: () => Promise<void>;
-  onBack?: () => void;
 }
 
-export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
+export function AppHeader({ title, user, onLogout }: AppHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -29,17 +28,6 @@ export function AppHeader({ title, user, onLogout, onBack }: AppHeaderProps) {
     <header className="sticky top-0 z-30 border-b border-border/80 bg-surface-subtle/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 items-center gap-3">
-          {onBack ? (
-            <button
-              type="button"
-              onClick={onBack}
-              aria-label={UI_MESSAGES.REORDER.BACK_LABEL}
-              className="flex min-h-11 min-w-11 items-center justify-center rounded-xl text-content-secondary transition-colors hover:bg-surface-muted/70 focus-visible:outline-2 focus-visible:outline-brand"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-          ) : null}
-
           <div className="flex items-center gap-2.5">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand text-brand-content shadow-sm">
               <img

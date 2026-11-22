@@ -1,3 +1,5 @@
+export type RoutineWorkspaceMode = 'view' | 'edit' | 'reorder';
+
 export interface Routine {
   id: string;
   user_id: string;

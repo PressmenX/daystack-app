@@ -30,7 +30,7 @@ export function TimelineLoadingState({
               />
             </div>
 
-            <div className="mb-3 flex min-h-18x-1 items-center justify-between gap-3 rounded-2xl border border-border/80 bg-surface px-4 py-3.5">
+            <div className="mb-3 flex min-w-0 flex-1 items-center justify-between gap-3 rounded-2xl border border-border/80 bg-surface px-4 py-3.5">
               <div className="min-w-0 flex-1 space-y-2">
                 <div className="skeleton h-3 w-14 rounded" />
                 <div
@@ -39,7 +39,6 @@ export function TimelineLoadingState({
                   }`}
                 />
               </div>
-             
             </div>
           </li>
         ))}

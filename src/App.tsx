@@ -30,17 +30,7 @@ function AppRoutes() {
         path={ROUTES.DASHBOARD}
         element={
           user ? (
-            <RoutineWorkspace user={user} onLogout={logout} view="dashboard" />
-          ) : (
-            <Navigate to={ROUTES.LOGIN} replace />
-          )
-        }
-      />
-      <Route
-        path={ROUTES.REORDER}
-        element={
-          user ? (
-            <RoutineWorkspace user={user} onLogout={logout} view="reorder" />
+            <RoutineWorkspace user={user} onLogout={logout} />
           ) : (
             <Navigate to={ROUTES.LOGIN} replace />
           )

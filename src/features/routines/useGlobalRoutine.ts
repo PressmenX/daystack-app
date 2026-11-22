@@ -116,12 +116,6 @@ export function useGlobalRoutine(userId: string) {
         setActivities((prev) =>
           prev.map((item) => (item.id === activity.id ? updated : item))
         );
-        showToast(
-          nextCompleted
-            ? UI_MESSAGES.ACTIVITY.TOGGLE_DONE_SUCCESS
-            : UI_MESSAGES.ACTIVITY.TOGGLE_UNDONE_SUCCESS,
-          'success'
-        );
       } catch (err) {
         setActivities((prev) =>
           prev.map((item) =>
@@ -167,11 +161,11 @@ export function useGlobalRoutine(userId: string) {
         setActivities(
           orderedActivities.map((item, index) => ({ ...item, position: index }))
         );
-        showToast(UI_MESSAGES.REORDER.SAVE_ORDER_SUCCESS, 'success');
+        showToast(UI_MESSAGES.DASHBOARD.SAVE_ORDER_SUCCESS, 'success');
         return true;
       } catch (err) {
         const message =
-          err instanceof Error ? err.message : UI_MESSAGES.REORDER.SAVE_ORDER_ERROR;
+          err instanceof Error ? err.message : UI_MESSAGES.DASHBOARD.SAVE_ORDER_ERROR;
         showToast(message, 'error');
         return false;
       } finally {
