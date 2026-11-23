@@ -8,4 +8,4 @@ export type {
   Routine,
   RoutineProgress,
 } from './routine.types';
-export { useGlobalRoutine } from './useGlobalRoutine';
+export { useGlobalRoutine } from './hooks/useGlobalRoutine';

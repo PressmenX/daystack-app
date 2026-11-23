@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useToast } from '../../common/useToast';
-import { UI_MESSAGES } from '../../constants/messages';
-import { activityService } from './activityService';
+import { useToast } from '../../../common/useToast';
+import { UI_MESSAGES } from '../../../constants/messages';
+import { activityService } from '../activityService';
 import type {
   Activity,
   ActivityFormValues,
   BulkActivityMutationResult,
   Routine,
   RoutineProgress,
-} from './routine.types';
-import { routineService } from './routineService';
+} from '../routine.types';
+import { routineService } from '../routineService';
 
 export function useGlobalRoutine(userId: string) {
   const [routine, setRoutine] = useState<Routine | null>(null);
