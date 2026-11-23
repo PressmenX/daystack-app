@@ -1,5 +1,6 @@
 import { AlertTriangle } from 'lucide-react';
 import { UI_MESSAGES } from '../../constants/messages';
+import { useModalHistory } from '../useModalHistory';
 
 interface ConfirmModalProps {
   open: boolean;
@@ -22,6 +23,8 @@ export function ConfirmModal({
   onConfirm,
   onCancel,
 }: ConfirmModalProps) {
+  useModalHistory(open, onCancel);
+
   if (!open) {
     return null;
   }

@@ -14,6 +14,7 @@ export function useRoutineWorkspaceController(userId: string) {
     activities: routine.activities,
     isMutating: routine.isMutating,
     saveOrder: routine.saveOrder,
+    onExitEditMode: () => setSelectedIds(new Set()),
   });
 
   function openAddModal(): void {
@@ -84,7 +85,10 @@ export function useRoutineWorkspaceController(userId: string) {
     editingActivity,
     deletingActivity,
     bulkDeleteConfirmOpen,
-    enterEditMode: editMode.enterEditMode,
+    enterEditMode: () => {
+      setSelectedIds(new Set());
+      editMode.enterEditMode();
+    },
     exitEditMode: editMode.handleExitEditMode,
     openAddModal,
     openActivityDetails,

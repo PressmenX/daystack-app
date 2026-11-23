@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { isModalBackNavigation } from '../../../common/useModalHistory';
 import type { Activity, RoutineWorkspaceMode } from '../routine.types';
 import { useActivityOrderDraft } from './useActivityOrderDraft';
 
@@ -6,12 +7,14 @@ interface UseRoutineEditModeParams {
   activities: Activity[];
   isMutating: boolean;
   saveOrder: (activities: Activity[]) => Promise<boolean>;
+  onExitEditMode: () => void;
 }
 
 export function useRoutineEditMode({
   activities,
   isMutating,
   saveOrder,
+  onExitEditMode,
 }: UseRoutineEditModeParams) {
   const [mode, setMode] = useState<RoutineWorkspaceMode>('view');
   const editHistoryEntry = useRef(false);
@@ -55,6 +58,7 @@ export function useRoutineEditMode({
       }
 
       resetDraft(draftActivities);
+      onExitEditMode();
       setMode('view');
 
       if (editHistoryEntry.current) {
@@ -68,6 +72,7 @@ export function useRoutineEditMode({
     draftActivities,
     hasChanges,
     isMutating,
+    onExitEditMode,
     resetDraft,
     saveOrder,
   ]);
@@ -78,6 +83,9 @@ export function useRoutineEditMode({
     }
 
     function handleBrowserBack(): void {
+      if (isModalBackNavigation()) {
+        return;
+      }
       if (!editHistoryEntry.current) {
         return;
       }

@@ -2,6 +2,7 @@ import { X } from 'lucide-react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { UI_MESSAGES } from '../../../constants/messages';
+import { useModalHistory } from '../../../common/useModalHistory';
 import type { Activity, ActivityFormValues } from '../routine.types';
 import { ActivityFormActions } from './ActivityFormActions';
 import { ActivityFormFields } from './ActivityFormFields';
@@ -25,6 +26,8 @@ export function ActivityFormModal({
   onRequestDelete,
   onClose,
 }: ActivityFormModalProps) {
+  useModalHistory(open, onClose);
+
   const {
     register,
     handleSubmit,
