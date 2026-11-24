@@ -1,4 +1,4 @@
-import { GripVertical } from 'lucide-react';
+import { Check, GripVertical } from 'lucide-react';
 import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import type { DraggableAttributes } from '@dnd-kit/core';
 import { formatDisplayTime } from '../../../common/dateUtils';
@@ -14,6 +14,7 @@ interface ActivityTimelineCardProps {
   dragAttributes: DraggableAttributes;
   dragListeners: SyntheticListenerMap | undefined;
   onOpenDetails: (activity: Activity) => void;
+  onToggleCompletion: (activity: Activity) => Promise<boolean>;
 }
 
 export function ActivityTimelineCard({
@@ -25,6 +26,7 @@ export function ActivityTimelineCard({
   dragAttributes,
   dragListeners,
   onOpenDetails,
+  onToggleCompletion,
 }: ActivityTimelineCardProps) {
   const formattedTime = formatDisplayTime(activity.start_time);
 
@@ -92,7 +94,36 @@ export function ActivityTimelineCard({
         </div>
       </button>
 
-      {isEditMode ? (
+      {!isEditMode ? (
+        <button
+          type="button"
+          role="checkbox"
+          aria-checked={activity.is_completed}
+          aria-label={`${activity.is_completed ? UI_MESSAGES.ACTIVITY.MARK_UNDONE_ACTION : UI_MESSAGES.ACTIVITY.MARK_DONE_ACTION}: ${activity.name}`}
+          onClick={() => void onToggleCompletion(activity)}
+          className="relative mr-3 flex h-11 w-11 shrink-0 self-center items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-brand"
+        >
+          {isNext && !activity.is_completed ? (
+            <span
+              aria-hidden="true"
+              className="absolute inset-1 rounded-full border-2 border-warning motion-safe:animate-ping"
+            />
+          ) : null}
+          <span
+            className={`relative flex h-8 w-8 items-center justify-center rounded-full border-2 transition-colors ${
+              activity.is_completed
+                ? 'border-brand bg-brand text-brand-content'
+                : isNext
+                  ? 'border-warning bg-surface text-warning'
+                  : 'border-surface-muted bg-surface text-content-disabled'
+            }`}
+          >
+            {activity.is_completed ? (
+              <Check className="h-5 w-5 stroke-[3]" />
+            ) : null}
+          </span>
+        </button>
+      ) : (
         <button
           type="button"
           data-mode-control
@@ -107,7 +138,7 @@ export function ActivityTimelineCard({
         >
           <GripVertical className="h-4 w-4" />
         </button>
-      ) : null}
+      )}
     </div>
   );
 }

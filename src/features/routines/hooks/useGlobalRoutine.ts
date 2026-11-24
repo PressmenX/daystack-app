@@ -75,6 +75,39 @@ export function useGlobalRoutine(userId: string) {
     [activities, routine, showToast, userId]
   );
 
+  const addActivities = useCallback(
+    async (values: ActivityFormValues[]): Promise<boolean> => {
+      if (!routine) {
+        return false;
+      }
+      const validValues = values.filter((item) => item.name.trim().length > 0);
+      if (validValues.length === 0) {
+        return false;
+      }
+      setIsMutating(true);
+      try {
+        const nextPosition =
+          activities.length > 0 ? activities[activities.length - 1].position + 1 : 0;
+        const created = await activityService.createActivities({
+          routineId: routine.id,
+          userId,
+          startPosition: nextPosition,
+          values: validValues,
+        });
+        setActivities((prev) => [...prev, ...created]);
+        showToast(UI_MESSAGES.ACTIVITY.CREATE_SUCCESS, 'success');
+        return true;
+      } catch (err) {
+        const message = err instanceof Error ? err.message : UI_MESSAGES.ACTIVITY.MUTATION_ERROR;
+        showToast(message, 'error');
+        return false;
+      } finally {
+        setIsMutating(false);
+      }
+    },
+    [activities, routine, showToast, userId]
+  );
+
   const updateActivity = useCallback(
     async (activityId: string, values: ActivityFormValues): Promise<boolean> => {
       setIsMutating(true);
@@ -309,6 +342,7 @@ export function useGlobalRoutine(userId: string) {
     error,
     reload: loadRoutine,
     addActivity,
+    addActivities,
     updateActivity,
     toggleActivity,
     completeActivities,

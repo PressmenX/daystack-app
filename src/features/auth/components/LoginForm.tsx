@@ -125,12 +125,12 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn mt-2 min-h-12 w-full rounded-xl border-none bg-neutral text-sm font-semibold text-neutral-content hover:bg-neutral"
+          className="btn mt-2 min-h-12 w-full rounded-xl border-none bg-neutral text-sm font-semibold text-neutral-content hover:bg-neutral disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? (
             <span className="loading loading-spinner loading-sm" />
           ) : null}
-          <span>{UI_MESSAGES.AUTH.LOGIN_SUBMIT}</span>
+          <span>{isSubmitting ? "Masuk..." : UI_MESSAGES.AUTH.LOGIN_SUBMIT}</span>
         </button>
       </form>
 

@@ -13,6 +13,13 @@ interface CreateActivityInput {
   values: ActivityFormValues;
 }
 
+interface CreateActivitiesInput {
+  routineId: string;
+  userId: string;
+  startPosition: number;
+  values: ActivityFormValues[];
+}
+
 interface UpdateActivityInput {
   activityId: string;
   userId: string;
@@ -20,6 +27,28 @@ interface UpdateActivityInput {
 }
 
 export const activityService = {
+  async createActivities(input: CreateActivitiesInput): Promise<Activity[]> {
+    if (!isSupabaseConfigured || !supabase) {
+      throw new Error(SUPABASE_CONFIG_ERROR);
+    }
+    const rows = input.values.map((values, index) => ({
+      routine_id: input.routineId,
+      user_id: input.userId,
+      name: values.name.trim(),
+      start_time: values.start_time.trim() || null,
+      is_completed: false,
+      position: input.startPosition + index,
+    }));
+    const { data, error } = await supabase
+      .from(SUPABASE_TABLES.ACTIVITIES)
+      .insert(rows)
+      .select('*');
+    if (error || !data) {
+      throw new Error(error?.message || 'Gagal menambah aktivitas.');
+    }
+    return data as Activity[];
+  },
+
   async createActivity(input: CreateActivityInput): Promise<Activity> {
     const cleanName = input.values.name.trim();
     const cleanTime = input.values.start_time.trim() || null;

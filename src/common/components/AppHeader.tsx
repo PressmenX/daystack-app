@@ -39,7 +39,7 @@ export function AppHeader({
               disabled={isMutating}
               aria-label={UI_MESSAGES.HEADER.EXIT_EDIT_MODE}
               title={UI_MESSAGES.HEADER.EXIT_EDIT_MODE}
-              className="flex h-11 w-11 items-center justify-center rounded-full text-content-muted transition-colors hover:text-content focus-visible:outline-2 focus-visible:outline-content-muted disabled:opacity-40"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-content-muted transition-colors hover:text-content focus-visible:outline-2 focus-visible:outline-content-muted disabled:cursor-not-allowed disabled:opacity-40"
             >
               <ArrowLeft className="h-5 w-5" />
             </button>
@@ -51,7 +51,7 @@ export function AppHeader({
                 disabled={selectedCount === 0 || isMutating}
                 aria-label={UI_MESSAGES.HEADER.BULK_COMPLETE}
                 title={UI_MESSAGES.HEADER.BULK_COMPLETE}
-                className="flex h-11 w-11 items-center justify-center rounded-full text-content-muted transition-colors hover:text-content focus-visible:outline-2 focus-visible:outline-content-muted disabled:opacity-40"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-content-muted transition-colors hover:text-content focus-visible:outline-2 focus-visible:outline-content-muted disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <Check className="h-5 w-5" />
               </button>
@@ -62,7 +62,7 @@ export function AppHeader({
                 disabled={selectedCount === 0 || isMutating}
                 aria-label={UI_MESSAGES.HEADER.BULK_DELETE}
                 title={UI_MESSAGES.HEADER.BULK_DELETE}
-                className="flex h-11 w-11 items-center justify-center rounded-full text-content-muted transition-colors hover:text-content focus-visible:outline-2 focus-visible:outline-content-muted disabled:opacity-40"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-content-muted transition-colors hover:text-content focus-visible:outline-2 focus-visible:outline-content-muted disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <Trash2 className="h-5 w-5" />
               </button>

@@ -2,7 +2,6 @@ import { Clock } from 'lucide-react';
 import type {
   FieldErrors,
   UseFormRegister,
-  UseFormSetValue,
 } from 'react-hook-form';
 import {
   MAX_ACTIVITY_NAME_LENGTH,
@@ -13,7 +12,7 @@ import type { ActivityFormValues } from '../routine.types';
 
 interface ActivityFormFieldsProps {
   register: UseFormRegister<ActivityFormValues>;
-  setValue: UseFormSetValue<ActivityFormValues>;
+  setValue: (field: 'start_time', value: string) => void;
   errors: FieldErrors<ActivityFormValues>;
   startTimeValue: string;
 }
@@ -29,7 +28,7 @@ export function ActivityFormFields({
       <div>
         <label
           htmlFor="activity-name"
-          className="mb-1.5 block text-sm font-semibold text-content-secondary"
+          className="mb-1.5 block text-xs font-semibold text-content-secondary"
         >
           {UI_MESSAGES.ACTIVITY.NAME_LABEL}
         </label>
@@ -61,7 +60,7 @@ export function ActivityFormFields({
         <div className="mb-1.5 flex items-center justify-between">
           <label
             htmlFor="activity-start-time"
-            className="text-sm font-semibold text-content-secondary"
+            className="text-xs font-semibold text-content-secondary"
           >
             {UI_MESSAGES.ACTIVITY.START_TIME_LABEL}
           </label>

@@ -34,6 +34,7 @@ interface ActivityTimelineProps {
   onRetry: () => void;
   onAdd: () => void;
   onOpenDetails: (activity: Activity) => void;
+  onToggleCompletion: (activity: Activity) => Promise<boolean>;
   onSelect: (activityId: string) => void;
   onDragEnd: (event: DragEndEvent) => void;
 }
@@ -49,6 +50,7 @@ export function ActivityTimeline({
   onRetry,
   onAdd,
   onOpenDetails,
+  onToggleCompletion,
   onSelect,
   onDragEnd,
 }: ActivityTimelineProps) {
@@ -123,6 +125,7 @@ export function ActivityTimeline({
                     mode={mode}
                     onSelect={onSelect}
                     onOpenDetails={onOpenDetails}
+                    onToggleCompletion={onToggleCompletion}
                   />
                 ))}
               </ol>

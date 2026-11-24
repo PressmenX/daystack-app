@@ -13,6 +13,7 @@ interface ActivityTimelineItemProps {
   mode: RoutineWorkspaceMode;
   onSelect: (activityId: string) => void;
   onOpenDetails: (activity: Activity) => void;
+  onToggleCompletion: (activity: Activity) => Promise<boolean>;
 }
 
 export function ActivityTimelineItem({
@@ -24,6 +25,7 @@ export function ActivityTimelineItem({
   mode,
   onSelect,
   onOpenDetails,
+  onToggleCompletion,
 }: ActivityTimelineItemProps) {
   const isEditMode = mode === 'edit';
   const {
@@ -79,6 +81,7 @@ export function ActivityTimelineItem({
         dragAttributes={attributes}
         dragListeners={listeners}
         onOpenDetails={onOpenDetails}
+        onToggleCompletion={onToggleCompletion}
       />
 
       {!isLast ? (

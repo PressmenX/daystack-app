@@ -110,12 +110,12 @@ export function RegisterForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn mt-2 min-h-12 w-full rounded-xl border-none bg-brand text-sm font-semibold text-brand-content hover:bg-brand"
+          className="btn mt-2 min-h-12 w-full rounded-xl border-none bg-brand text-sm font-semibold text-brand-content hover:bg-brand disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? (
             <span className="loading loading-spinner loading-sm" />
           ) : null}
-          <span>{UI_MESSAGES.AUTH.REGISTER_SUBMIT}</span>
+          <span>{isSubmitting ? "Mendaftar..." : UI_MESSAGES.AUTH.REGISTER_SUBMIT}</span>
         </button>
       </form>
 

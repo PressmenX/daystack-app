@@ -55,7 +55,7 @@ export function ConfirmModal({
             type="button"
             onClick={onCancel}
             disabled={isLoading}
-            className="btn min-h-11 flex-1 rounded-xl border-border bg-surface text-content-secondary hover:bg-surface-subtle"
+            className="btn min-h-11 flex-1 rounded-xl border-border bg-surface text-content-secondary hover:bg-surface-subtle disabled:cursor-not-allowed disabled:opacity-50"
           >
             {cancelLabel}
           </button>
@@ -63,12 +63,12 @@ export function ConfirmModal({
             type="button"
             onClick={() => void onConfirm()}
             disabled={isLoading}
-            className="btn min-h-11 flex-1 rounded-xl border-none bg-danger text-danger-content hover:bg-danger"
+            className="btn min-h-11 flex-1 rounded-xl border-none bg-danger text-danger-content hover:bg-danger disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isLoading ? (
               <span className="loading loading-spinner loading-sm" />
             ) : null}
-            <span>{confirmLabel}</span>
+            <span>{isLoading ? "Menghapus..." : confirmLabel}</span>
           </button>
         </div>
       </div>

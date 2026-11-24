@@ -31,6 +31,7 @@ export function RoutineWorkspace({ user, onLogout }: RoutineWorkspaceProps) {
       onRetry={() => void routine.reload()}
       onAdd={controller.openAddModal}
       onOpenDetails={controller.openActivityDetails}
+      onToggleCompletion={controller.toggleActivity}
       onSelect={controller.toggleSelection}
       onDragEnd={controller.handleDragEnd}
     />
@@ -123,6 +124,7 @@ export function RoutineWorkspace({ user, onLogout }: RoutineWorkspaceProps) {
         editingActivity={controller.editingActivity}
         isSubmitting={routine.isMutating}
         onSubmitValues={controller.handleFormSubmit}
+        onSubmitManyValues={controller.handleBulkFormSubmit}
         onToggleCompletion={controller.toggleActivity}
         onRequestDelete={controller.setDeletingActivity}
         onClose={controller.closeForm}

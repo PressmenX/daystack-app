@@ -51,15 +51,13 @@ export function ActivityTimelineNode({
           )}
         </button>
       ) : isCompleted ? (
-        <span className="relative z-10 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-brand-content transition-all duration-200">
-          <Check className="h-3.5 w-3.5 stroke-3" />
-        </span>
+        <span className="relative z-10 h-4 w-4 rounded-full bg-brand transition-all duration-200" />
       ) : isNext ? (
-        <span className="relative z-10 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 border-warning bg-warning-soft transition-all duration-200">
-          <span className="h-2.5 w-2.5 rounded-full bg-warning" />
+        <span className="relative z-10 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-warning bg-warning-soft transition-all duration-200">
+          <span className="h-2 w-2 rounded-full bg-warning" />
         </span>
       ) : (
-        <span className="relative z-10 h-5 w-5 rounded-full bg-surface-muted transition-all duration-200" />
+        <span className="relative z-10 h-4 w-4 rounded-full bg-surface-muted transition-all duration-200" />
       )}
     </div>
   );

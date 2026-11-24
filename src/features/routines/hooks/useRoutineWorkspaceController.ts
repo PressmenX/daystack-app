@@ -34,6 +34,10 @@ export function useRoutineWorkspaceController(userId: string) {
     return routine.addActivity(values);
   }
 
+  async function handleBulkFormSubmit(values: ActivityFormValues[]): Promise<boolean> {
+    return routine.addActivities(values);
+  }
+
   async function handleConfirmDelete(): Promise<void> {
     if (!deletingActivity) {
       return;
@@ -93,6 +97,7 @@ export function useRoutineWorkspaceController(userId: string) {
     openAddModal,
     openActivityDetails,
     handleFormSubmit,
+    handleBulkFormSubmit,
     handleConfirmDelete,
     toggleSelection,
     handleCompleteSelected,

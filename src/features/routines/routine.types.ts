@@ -26,6 +26,12 @@ export interface ActivityFormValues {
   start_time: string;
 }
 
+export interface BulkActivityFormValues {
+  name: string;
+  start_time: string;
+  activities: ActivityFormValues[];
+}
+
 export interface BulkActivityMutationResult {
   failedIds: string[];
 }
