@@ -97,7 +97,11 @@ export function RoutineWorkspace({ user, onLogout }: RoutineWorkspaceProps) {
               </h2>
             </div>
 
-            <ProgressCard progress={routine.progress} />
+            <ProgressCard
+              progress={routine.progress}
+              isMutating={routine.isMutating}
+              onClearAll={() => controller.setClearAllConfirmOpen(true)}
+            />
           </div>
 
           <div
@@ -148,6 +152,16 @@ export function RoutineWorkspace({ user, onLogout }: RoutineWorkspaceProps) {
         isLoading={routine.isMutating}
         onConfirm={controller.handleDeleteSelected}
         onCancel={() => controller.setBulkDeleteConfirmOpen(false)}
+      />
+
+      <ConfirmModal
+        open={controller.clearAllConfirmOpen}
+        title={UI_MESSAGES.ACTIVITY.CLEAR_ALL_CONFIRM_TITLE}
+        description={UI_MESSAGES.ACTIVITY.CLEAR_ALL_CONFIRM_BODY}
+        confirmLabel={UI_MESSAGES.ACTIVITY.DELETE_CONFIRM_BUTTON}
+        isLoading={routine.isMutating}
+        onConfirm={controller.handleClearAll}
+        onCancel={() => controller.setClearAllConfirmOpen(false)}
       />
     </div>
   );

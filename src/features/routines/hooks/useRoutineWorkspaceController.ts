@@ -9,6 +9,7 @@ export function useRoutineWorkspaceController(userId: string) {
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
   const [deletingActivity, setDeletingActivity] = useState<Activity | null>(null);
   const [bulkDeleteConfirmOpen, setBulkDeleteConfirmOpen] = useState(false);
+  const [clearAllConfirmOpen, setClearAllConfirmOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
   const editMode = useRoutineEditMode({
     activities: routine.activities,
@@ -76,6 +77,11 @@ export function useRoutineWorkspaceController(userId: string) {
     setBulkDeleteConfirmOpen(false);
   }
 
+  async function handleClearAll(): Promise<void> {
+    await routine.deleteActivities(routine.activities.map((activity) => activity.id));
+    setClearAllConfirmOpen(false);
+  }
+
   function closeForm(): void {
     setFormOpen(false);
   }
@@ -89,6 +95,7 @@ export function useRoutineWorkspaceController(userId: string) {
     editingActivity,
     deletingActivity,
     bulkDeleteConfirmOpen,
+    clearAllConfirmOpen,
     enterEditMode: () => {
       setSelectedIds(new Set());
       editMode.enterEditMode();
@@ -102,10 +109,12 @@ export function useRoutineWorkspaceController(userId: string) {
     toggleSelection,
     handleCompleteSelected,
     handleDeleteSelected,
+    handleClearAll,
     handleDragEnd: editMode.handleDragEnd,
     toggleActivity: routine.toggleActivity,
     setDeletingActivity,
     setBulkDeleteConfirmOpen,
+    setClearAllConfirmOpen,
     closeForm,
   };
 }

@@ -1,12 +1,18 @@
-import { Check, Clock, TrendingUp } from 'lucide-react';
-import { UI_MESSAGES } from '../../../constants/messages';
-import type { RoutineProgress } from '../routine.types';
+import { Check, Clock, TrendingUp } from "lucide-react";
+import { UI_MESSAGES } from "../../../constants/messages";
+import type { RoutineProgress } from "../routine.types";
 
 interface ProgressCardProps {
   progress: RoutineProgress;
+  isMutating: boolean;
+  onClearAll: () => void;
 }
 
-export function ProgressCard({ progress }: ProgressCardProps) {
+export function ProgressCard({
+  progress,
+  isMutating,
+  onClearAll,
+}: ProgressCardProps) {
   const { completedCount, totalCount, percentage, remainingCount } = progress;
 
   const isAllCompleted = totalCount > 0 && remainingCount === 0;
@@ -27,7 +33,7 @@ export function ProgressCard({ progress }: ProgressCardProps) {
     <section
       aria-label={UI_MESSAGES.DASHBOARD.PROGRESS_KICKER}
       className={`relative overflow-hidden rounded-3xl border border-border/80 p-5 shadow-sm transition-colors sm:p-6 ${
-        isAllCompleted ? 'bg-brand' : 'bg-surface'
+        isAllCompleted ? "bg-brand" : "bg-surface"
       }`}
     >
       <div
@@ -39,14 +45,16 @@ export function ProgressCard({ progress }: ProgressCardProps) {
         <div className="flex items-center justify-between gap-3">
           <p
             className={`text-xs font-bold tracking-[0.12em] ${
-              isAllCompleted ? 'text-white/70' : 'text-content-muted'
+              isAllCompleted ? "text-white/70" : "text-content-muted"
             }`}
           >
             {UI_MESSAGES.DASHBOARD.PROGRESS_KICKER}
           </p>
           <span
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
-              isAllCompleted ? 'bg-white/20 text-white' : 'bg-brand/10 text-brand'
+              isAllCompleted
+                ? "bg-white/20 text-white"
+                : "bg-brand/10 text-brand"
             }`}
           >
             {totalCount === 0 ? (
@@ -61,29 +69,45 @@ export function ProgressCard({ progress }: ProgressCardProps) {
         <div className="mt-3 flex flex-row-reverse items-center justify-between gap-3">
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
-            <span
-              className={`font-display text-xl font-extrabold tabular-nums sm:text-2xl ${
-                isAllCompleted ? 'text-white' : 'text-content'
-              }`}
-            >
-              {completedCount} / {totalCount} {UI_MESSAGES.DASHBOARD.COMPLETED_LABEL}
-            </span>
-            {completedCount > 0 ? (
               <span
-                className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-                  isAllCompleted ? 'bg-white text-brand' : 'bg-brand text-brand-content'
+                className={`font-display text-xl font-extrabold tabular-nums sm:text-2xl ${
+                  isAllCompleted ? "text-white" : "text-content"
                 }`}
               >
-                <Check className="h-3 w-3 stroke-3" />
+                {completedCount} / {totalCount}{" "}
+                {UI_MESSAGES.DASHBOARD.COMPLETED_LABEL}
               </span>
-            ) : null}
+              {completedCount > 0 ? (
+                <span
+                  className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
+                    isAllCompleted
+                      ? "bg-white text-brand"
+                      : "bg-brand text-brand-content"
+                  }`}
+                >
+                  <Check className="h-3 w-3 stroke-3" />
+                </span>
+              ) : null}
             </div>
             <div
-              className={`mt-2 text-xs leading-relaxed ${
-                isAllCompleted ? 'text-white' : 'text-content-secondary'
+              className={` py-2 text-xs leading-relaxed ${
+                isAllCompleted ? "text-white" : "text-content-secondary"
               }`}
             >
-              <p>{helperMessage}</p>
+              {isAllCompleted ? (
+                <button
+                  type="button"
+                  onClick={onClearAll}
+                  disabled={isMutating}
+                  className="btn btn-sm min-h-8 rounded-lg border border-white bg-transparent px-3 text-white shadow-none hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isMutating
+                    ? "Menghapus..."
+                    : UI_MESSAGES.DASHBOARD.CLEAR_ALL}
+                </button>
+              ) : (
+                <p>{helperMessage}</p>
+              )}
             </div>
           </div>
           <div
@@ -106,7 +130,7 @@ export function ProgressCard({ progress }: ProgressCardProps) {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="7"
-                className={isAllCompleted ? 'text-white/25' : 'text-brand/15'}
+                className={isAllCompleted ? "text-white/25" : "text-brand/15"}
               />
               <circle
                 cx="48"
@@ -119,20 +143,19 @@ export function ProgressCard({ progress }: ProgressCardProps) {
                 strokeDasharray={2 * Math.PI * 40}
                 strokeDashoffset={2 * Math.PI * 40 * (1 - percentage / 100)}
                 className={`transition-[stroke-dashoffset] duration-300 ${
-                  isAllCompleted ? 'text-white' : 'text-brand'
+                  isAllCompleted ? "text-white" : "text-brand"
                 }`}
               />
             </svg>
             <span
               className={`absolute inset-0 flex items-center justify-center font-display text-lg font-bold tabular-nums sm:text-xl ${
-                isAllCompleted ? 'text-white' : 'text-brand'
+                isAllCompleted ? "text-white" : "text-brand"
               }`}
             >
               {percentage}%
             </span>
           </div>
         </div>
-
       </div>
     </section>
   );
