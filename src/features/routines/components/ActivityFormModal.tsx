@@ -141,9 +141,14 @@ export function ActivityFormModal({
                 isSubmitting={isSubmitting}
                 onToggleCompletion={() => void handleToggleCompletion()}
                 onRequestDelete={() => {
-                  onClose();
                   if (editingActivity) {
-                    onRequestDelete(editingActivity);
+                    const activity = editingActivity;
+                    onClose();
+                    window.addEventListener(
+                      'popstate',
+                      () => onRequestDelete(activity),
+                      { once: true },
+                    );
                   }
                 }}
                 onClose={onClose}
@@ -151,7 +156,7 @@ export function ActivityFormModal({
             </>
           ) : (
             <>
-              <div className="grid grid-cols-[minmax(0,1fr)_112px_36px] gap-1.5 sm:grid-cols-[minmax(0,1fr)_180px_44px] sm:gap-2">
+              <div className="grid grid-cols-[minmax(0,1fr)_108px_36px] gap-1.5 sm:grid-cols-[minmax(0,1fr)_120px_44px] sm:gap-2">
                 <span className="whitespace-nowrap text-xs font-semibold text-content-secondary">
                   {UI_MESSAGES.ACTIVITY.NAME_LABEL}
                 </span>
@@ -168,7 +173,7 @@ export function ActivityFormModal({
                 {fields.map((field, index) => (
                   <div
                     key={field.id}
-                    className="grid grid-cols-[minmax(0,1fr)_112px_36px] items-center gap-1.5 sm:grid-cols-[minmax(0,1fr)_180px_44px] sm:gap-2"
+                    className="grid grid-cols-[minmax(0,1fr)_108px_36px] items-center gap-1.5 sm:grid-cols-[minmax(0,1fr)_120px_44px] sm:gap-2"
                   >
                     <input
                       id={`activity-name-${index}`}
@@ -187,7 +192,7 @@ export function ActivityFormModal({
                       })}
                     />
                     <div className="relative min-w-0">
-                      <Clock className="pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-content-disabled sm:left-3 sm:h-4 sm:w-4" />
+                      <Clock className="pointer-events-none absolute left-2.5 top-1/2 z-10 h-3.5 w-3.5 -translate-y-1/2 text-content-disabled sm:left-3 sm:h-4 sm:w-4" />
                       <input
                         id={`activity-start-time-${index}`}
                         type="time"

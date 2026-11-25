@@ -62,7 +62,6 @@ export function useGlobalRoutine(userId: string) {
           values,
         });
         setActivities((prev) => [...prev, created]);
-        showToast(UI_MESSAGES.ACTIVITY.CREATE_SUCCESS, 'success');
         return true;
       } catch (err) {
         const message = err instanceof Error ? err.message : UI_MESSAGES.ACTIVITY.MUTATION_ERROR;
@@ -95,7 +94,6 @@ export function useGlobalRoutine(userId: string) {
           values: validValues,
         });
         setActivities((prev) => [...prev, ...created]);
-        showToast(UI_MESSAGES.ACTIVITY.CREATE_SUCCESS, 'success');
         return true;
       } catch (err) {
         const message = err instanceof Error ? err.message : UI_MESSAGES.ACTIVITY.MUTATION_ERROR;
@@ -120,7 +118,6 @@ export function useGlobalRoutine(userId: string) {
         setActivities((prev) =>
           prev.map((item) => (item.id === activityId ? updated : item))
         );
-        showToast(UI_MESSAGES.ACTIVITY.UPDATE_SUCCESS, 'success');
         return true;
       } catch (err) {
         const message = err instanceof Error ? err.message : UI_MESSAGES.ACTIVITY.MUTATION_ERROR;
@@ -226,8 +223,6 @@ export function useGlobalRoutine(userId: string) {
               : UI_MESSAGES.ACTIVITY.MUTATION_ERROR,
             'error'
           );
-        } else {
-          showToast(UI_MESSAGES.DASHBOARD.BULK_COMPLETE_SUCCESS, 'success');
         }
 
         return { failedIds: [...failedIds] };
@@ -275,8 +270,6 @@ export function useGlobalRoutine(userId: string) {
               : UI_MESSAGES.ACTIVITY.MUTATION_ERROR,
             'error'
           );
-        } else {
-          showToast(UI_MESSAGES.DASHBOARD.BULK_DELETE_SUCCESS, 'success');
         }
 
         return { failedIds: failedActivities.map((item) => item.id) };
@@ -297,7 +290,6 @@ export function useGlobalRoutine(userId: string) {
             .filter((item) => item.id !== activityId)
             .map((item, index) => ({ ...item, position: index }))
         );
-        showToast(UI_MESSAGES.ACTIVITY.DELETE_SUCCESS, 'success');
         return true;
       } catch (err) {
         const message = err instanceof Error ? err.message : UI_MESSAGES.ACTIVITY.MUTATION_ERROR;
@@ -319,7 +311,6 @@ export function useGlobalRoutine(userId: string) {
         setActivities(
           orderedActivities.map((item, index) => ({ ...item, position: index }))
         );
-        showToast(UI_MESSAGES.DASHBOARD.SAVE_ORDER_SUCCESS, 'success');
         return true;
       } catch (err) {
         const message =

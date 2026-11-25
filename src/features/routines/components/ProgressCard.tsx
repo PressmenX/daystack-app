@@ -1,4 +1,4 @@
-import { Check, ChevronRight, Clock, TrendingUp } from 'lucide-react';
+import { Check, Clock, TrendingUp } from 'lucide-react';
 import { UI_MESSAGES } from '../../../constants/messages';
 import type { RoutineProgress } from '../routine.types';
 
@@ -58,10 +58,11 @@ export function ProgressCard({ progress }: ProgressCardProps) {
           </span>
         </div>
 
-        <div className="mt-3 flex items-baseline justify-between gap-4">
-          <div className="flex items-center gap-2.5">
+        <div className="mt-3 flex flex-row-reverse items-center justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2">
             <span
-              className={`font-display text-2xl font-extrabold tabular-nums sm:text-3xl ${
+              className={`font-display text-xl font-extrabold tabular-nums sm:text-2xl ${
                 isAllCompleted ? 'text-white' : 'text-content'
               }`}
             >
@@ -69,48 +70,69 @@ export function ProgressCard({ progress }: ProgressCardProps) {
             </span>
             {completedCount > 0 ? (
               <span
-                className={`inline-flex h-6 w-6 items-center justify-center rounded-full ${
+                className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
                   isAllCompleted ? 'bg-white text-brand' : 'bg-brand text-brand-content'
                 }`}
               >
-                <Check className="h-3.5 w-3.5 stroke-3" />
+                <Check className="h-3 w-3 stroke-3" />
               </span>
             ) : null}
+            </div>
+            <div
+              className={`mt-2 text-xs leading-relaxed ${
+                isAllCompleted ? 'text-white' : 'text-content-secondary'
+              }`}
+            >
+              <p>{helperMessage}</p>
+            </div>
           </div>
-          <span className={`font-display text-xl font-bold tabular-nums sm:text-2xl ${isAllCompleted ? 'text-white' : 'text-brand'}`}>
-            {percentage}%
-          </span>
-        </div>
-
-        <div
-          role="progressbar"
-          aria-valuenow={percentage}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          className={`mt-4 h-2.5 w-full overflow-hidden rounded-full ${
-            isAllCompleted ? 'bg-white/25' : 'bg-brand/15'
-          }`}
-        >
           <div
-            className={`h-full rounded-full transition-all duration-300 ${
-              isAllCompleted ? 'bg-white' : 'bg-brand'
-            }`}
-            style={{ width: `${percentage}%` }}
-          />
+            role="progressbar"
+            aria-label={UI_MESSAGES.DASHBOARD.PROGRESS_KICKER}
+            aria-valuenow={percentage}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            className="relative h-24 w-24 shrink-0 sm:h-28 sm:w-28"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 96 96"
+              className="h-full w-full -rotate-90"
+            >
+              <circle
+                cx="48"
+                cy="48"
+                r="40"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="7"
+                className={isAllCompleted ? 'text-white/25' : 'text-brand/15'}
+              />
+              <circle
+                cx="48"
+                cy="48"
+                r="40"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="7"
+                strokeLinecap="round"
+                strokeDasharray={2 * Math.PI * 40}
+                strokeDashoffset={2 * Math.PI * 40 * (1 - percentage / 100)}
+                className={`transition-[stroke-dashoffset] duration-300 ${
+                  isAllCompleted ? 'text-white' : 'text-brand'
+                }`}
+              />
+            </svg>
+            <span
+              className={`absolute inset-0 flex items-center justify-center font-display text-lg font-bold tabular-nums sm:text-xl ${
+                isAllCompleted ? 'text-white' : 'text-brand'
+              }`}
+            >
+              {percentage}%
+            </span>
+          </div>
         </div>
 
-        <div
-          className={`mt-4 flex items-start gap-2 text-sm leading-relaxed ${
-            isAllCompleted ? 'text-white' : 'text-content-secondary'
-          }`}
-        >
-          <ChevronRight
-            className={`mt-0.5 h-4 w-4 shrink-0 ${
-              isAllCompleted ? 'text-white' : 'text-brand'
-            }`}
-          />
-          <p>{helperMessage}</p>
-        </div>
       </div>
     </section>
   );
