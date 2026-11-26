@@ -1,209 +1,183 @@
-# Daystack: Spesifikasi Produk
+# Daystack: Spesifikasi
 
-| | |
-|---|---|
-| App Name | Daystack |
-| Document Version | 0.10 (draf) |
-| App Version | 1.0.0 |
-| Updated | 21 November 2026 |
-| Platform | Web responsif (mobile-first) |
-| UI Language | Indonesia |
-| Tech stack: Frontend | Vite, React, TypeScript, Tailwind CSS, daisyUI, React Hook Form, React Router, Lucide React, Supabase JS (`@supabase/supabase-js`), dnd-kit |
-| Tech stack: Backend | Supabase |
+- **Versi Document**: 0.15 (*draf*)
+- **Versi App** : 1.3.3
+- **Updated** : 26 November 2026
+- **Platform** : Web responsif dengan pendekatan mobile-first.
+- **Bahasa Antarmuka** : Indonesia
+- **Tech Stack**
+    1. **Frontend** : Vite, React, TypeScript, Tailwind CSS, daisyUI, React Hook Form, React Router, dnd-kit
+    2. **Backend :** Supabase
+    3. **Deployment** : Vercel
 
-## 1. Deskripsi App
+---
 
-Daystack adalah aplikasi untuk menyusun rutinitas harian dalam bentuk urutan aktivitas, terinspirasi dari konsep habit stacking. Pengguna menyusun aktivitas secara berurutan dalam sebuah rutinitas, melihatnya sebagai timeline, dan pada mode checklist menandai aktivitas yang telah selesai.
+## 1. Overview
 
-### 1.1 Pengguna
+Daystack adalah aplikasi untuk menyusun rutinitas harian dalam bentuk urutan aktivitas, terinspirasi dari konsep habit stacking. Pengguna menyusun aktivitas secara berurutan dalam sebuah rutinitas dan melihatnya sebagai timeline. Pada mode checklist, pengguna menandai aktivitas yang telah selesai.
 
-Satu peran: pengguna terdaftar. Setiap pengguna hanya dapat mengakses data miliknya sendiri.
+Daystack memiliki satu peran, yaitu pengguna terdaftar. Setiap pengguna hanya dapat mengakses data miliknya sendiri.
 
-## 2. Fitur
+### Pages
 
-### 2.1 MVP 1
+- **Login & Register:** Halaman publik untuk login dan register.
+- **Dasbor :** Halaman yang menampilkan Card Progress, timeline Global Routines, dan tombol Add Activity.
 
-- Login dan register akun
-- Global Routines
-- Tampilan timeline
-- Card Progress
-- Tambah, ubah, dan hapus Activity
-- Pengaturan urutan Activity
+---
 
-### 2.2 MVP 2
+## 2. Glossary
 
-- Custom Routines
-- Pilihan jenis Activity saat menambah (Standar, With Time)
+- **Routines :** Kelompok Activity yang tersusun berurutan, seperti folder.
+- **Global Routines :** Routines bawaan yang tampil di Dasbor. Global Routines selalu berada pada mode checklist.
+- **Custom Routines :** Routines buatan pengguna, misalnya Morning Routines, Night Routines, dan Weekend Routines.
+- **Mode checklist :** Mode Routines yang memungkinkan pengguna mencentang Activity sebagai selesai.
+- **Mode non-checklist :** Mode Routines yang menampilkan Activity sebagai timeline tanpa centang. Mode ini adalah mode bawaan untuk Routines selain Global Routines.
+- **Activity :** Blok aktivitas dalam sebuah Routines.
+- **Default Activity :** Jenis Activity yang hanya mewajibkan Nama.
+- **Time Activity :** Jenis Activity yang mewajibkan Jam mulai.
 
-### 2.3 Lanjutan
+---
 
-- Decision Block
-- Condition Block
-- Push notifikasi dan reminder
-- Keterkaitan pemicu antar Activity
+## 3. Feature
 
-## 3. Penjelasan Fitur
+### MVP (  *Minimum Viable Product* )
 
-### 3.1 Istilah
+- F-01 Login dan register akun
+- F-02 Global Routines
+- F-03 Tampilan timeline
+- F-04 Card Progress
+- F-05 Tambah, ubah, dan hapus Activity
+- F-06 Pengaturan urutan Activity
+- F-12 Pengelolaan banyak Activity sekaligus
 
-| Istilah | Definisi |
-|---|---|
-| Routines | Kelompok (folder) yang berisi sejumlah Activity yang tersusun berurutan. |
-| Global Routines | Routines bawaan aplikasi yang ditampilkan di dasbor. Selalu berada pada mode checklist. |
-| Custom Routines | Routines buatan pengguna, misalnya Morning Routines, Night Routines, atau Weekend Routines. |
-| Mode checklist | Activity dapat dicentang sebagai selesai. |
-| Mode non-checklist | Activity hanya ditampilkan sebagai timeline dan tidak dapat dicentang. Ini adalah mode bawaan untuk Routines selain Global. |
-| Activity | Blok aktivitas dalam sebuah Routines. |
+### Post-MVP
 
-### 3.2 Autentikasi
+- F-07 Custom Routines
+- F-08 Pilihan jenis Activity saat menambah
 
-1. Pengguna WAJIB dapat mendaftar dan login menggunakan email dan password melalui Supabase Auth.
-2. Dasbor WAJIB hanya dapat diakses setelah login.
-3. Pengguna yang belum login WAJIB diarahkan ke halaman login.
+### Backlog
 
-### 3.3 Routines
+- F-09 Decision Block
+- F-10 Condition Block
+- F-11 Push notifikasi dan reminder
 
-**Global Routines**
+---
 
-1. Aplikasi WAJIB menyediakan satu Global Routines untuk setiap pengguna, dengan mode checklist.
-2. Global Routines WAJIB dibuat otomatis saat registrasi dengan daftar Activity kosong.
-3. Global Routines WAJIB ditampilkan di dasbor dalam bentuk timeline.
+## 4. Feature Details
 
-**Custom Routines**
+#### F-01 Login dan register akun
 
-1. Pengguna WAJIB dapat membuat Custom Routines dengan field berikut:
-   - Nama (wajib).
-   - Waktu terjadi (opsional).
-   - Jenis: checklist atau non-checklist (wajib).
-2. Custom Routines berjalan pada mode sesuai jenis yang dipilih.
+- Pengguna dapat melakukan register dan login dengan email dan password melalui Supabase Auth.
+- Daystack harus mengizinkan akses ke Dasbor hanya setelah pengguna login.
+- Daystack harus mengarahkan pengguna yang belum login ke halaman Login.
 
-### 3.4 Activity
+#### F-02 Global Routines
 
-**Field**
+- Daystack harus menyediakan satu Global Routines untuk setiap pengguna.
+- Global Routines harus berada pada mode checklist.
+- Daystack harus membuat Global Routines secara otomatis saat session pengguna tersedia setelah register atau login.
+- Daftar Activity pada Global Routines harus kosong saat pertama kali dibuat.
+- Daystack harus menampilkan Global Routines di Dasbor dalam bentuk timeline.
 
-| Field | Ketentuan |
-|---|---|
-| Nama | Wajib. |
-| Jam mulai | Opsional, kecuali pada Time Activity. Hanya berfungsi sebagai tampilan. |
-| isCompleted | Opsional. Hanya berlaku pada Routines mode checklist. |
+#### F-03 Tampilan timeline
 
-**Jenis Activity**
+- Daystack harus menampilkan Activity dalam sebuah Routines secara berurutan ke bawah sebagai timeline.
+- Daystack harus menampilkan Jam mulai pada Activity yang memilikinya.
+- Pada mode checklist, pengguna dapat mencentang setiap Activity.
+- Pada mode non-checklist, Daystack tidak menampilkan kontrol centang.
+- Daystack hanya mengubah status selesai ketika pengguna mencentang atau membatalkan centang.
+- Daystack tidak boleh mereset status selesai secara otomatis, termasuk saat pergantian hari.
+- Jam mulai tidak boleh memengaruhi status selesai.
 
-| Jenis | Ketentuan |
-|---|---|
-| Default Activity | Hanya nama yang wajib. Field lain boleh dikosongkan. |
-| Time Activity | Jam mulai wajib, karena aktivitas membutuhkan waktu yang pasti. |
-| Decision Block | Lihat Bagian 3.7. |
+#### F-04 Card Progress
 
-**Form Add Activity**
+- Daystack harus menampilkan jumlah Activity selesai dibandingkan dengan total Activity pada Global Routines, dalam bentuk angka dan persentase.
+- Daystack harus memperbarui Card Progress setiap kali status selesai sebuah Activity berubah.
+- Contoh: Global Routines berisi 4 Activity dan 1 Activity selesai. Card Progress menampilkan "1 dari 4" dan "25%".
 
-Form Add memuat seluruh field Activity. Tombol Add menampilkan pilihan jenis Activity (Standar, With Time).
+#### F-05 Tambah, ubah, dan hapus Activity
 
-**Perilaku status selesai**
+- Pengguna dapat menambah Activity.
+- Pengguna dapat mengubah Activity.
+- Pengguna dapat menghapus Activity.
+- Form Add harus memuat semua field Activity.
+- Pada Default Activity, hanya Nama yang wajib diisi. Field lain dapat dikosongkan.
+- Form harus menolak pengiriman bila Nama kosong.
+- Nama Activity dibatasi maksimal 120 karakter.
+- Field Activity terdiri dari:
+    - Nama, wajib diisi.
+    - Jam mulai, opsional dan hanya berfungsi sebagai tampilan.
+    - isCompleted, opsional dan hanya berlaku pada mode checklist.
 
-1. Status selesai hanya berubah melalui tindakan pengguna (mencentang atau membatalkan centang).
-2. Status selesai TIDAK direset otomatis, termasuk saat pergantian hari.
-3. Jam mulai tidak memengaruhi status selesai.
+#### F-06 Pengaturan urutan Activity
 
-**Pengelolaan Activity**
+- Pengguna dapat mengubah urutan Activity dengan drag-and-drop.
+- Daystack harus menyimpan urutan baru sehingga urutan tersebut tetap sama setelah halaman dimuat ulang.
+- Drag-and-drop harus berfungsi di layar sentuh.
+- Contoh: Urutan awal adalah A, B, C. Pengguna memindahkan C ke posisi pertama. Urutan menjadi C, A, B.
 
-1. Pengguna WAJIB dapat mengubah dan menghapus Activity.
-2. Pengguna WAJIB dapat mengubah urutan Activity (lihat Bagian 3.5).
+#### F-07 Custom Routines
 
-### 3.5 Tampilan Timeline
+- Pengguna dapat membuat Custom Routines.
+- Field Custom Routines terdiri dari:
+    - Nama, wajib diisi.
+    - Waktu terjadi, opsional.
+    - Jenis, wajib dipilih antara checklist dan non-checklist.
+- Custom Routines harus berjalan pada mode sesuai jenis yang dipilih.
+- Fitur ini bergantung pada F-02, F-03, dan F-05.
 
-1. Activity dalam sebuah Routines WAJIB ditampilkan berurutan secara vertikal sebagai timeline.
-2. Jam mulai WAJIB ditampilkan apabila Activity memilikinya.
-3. Pada mode checklist, setiap Activity WAJIB dapat dicentang.
-4. Pada mode non-checklist, Activity hanya ditampilkan tanpa kontrol centang.
-5. Pengguna WAJIB dapat mengubah urutan Activity dengan drag-and-drop, dan urutan baru WAJIB tersimpan.
+#### F-08 Pilihan jenis Activity saat menambah
 
-### 3.6 Card Progress
+- Tombol Add harus menampilkan pilihan jenis Activity, yaitu Default Activity dan Time Activity.
+- Pada Time Activity, Jam mulai wajib diisi.
+- Form harus memvalidasi Jam mulai pada Time Activity.
+- Fitur ini bergantung pada F-05.
 
-Card Progress WAJIB menampilkan jumlah Activity yang selesai dibandingkan total Activity pada Global Routines, dalam bentuk angka dan persentase.
+#### F-12 Pengelolaan banyak Activity sekaligus
 
-### 3.7 Decision Block
+- Pengguna dapat memilih beberapa Activity dalam mode edit.
+- Pengguna dapat menyelesaikan semua Activity yang dipilih sekaligus.
+- Pengguna dapat menghapus beberapa Activity yang dipilih sekaligus.
+- Pengguna dapat menghapus semua Activity melalui tombol Clear All.
+- Nama Activity harus memiliki panjang maksimal 120 karakter.
 
-Blok yang memuat beberapa Activity di dalamnya dalam satu waktu. Activity di dalam blok bersifat saling memilih: pengguna memilih salah satu. Blok dapat memiliki waktu, dapat juga tidak.
+---
 
-### 3.8 Condition Block
+## 5. Data
 
-Blok yang bergantung pada suatu kondisi. Pada bagian atas blok, pengguna mengisi teks dengan format "Terjadi jika {kondisi}". Di dalam blok, pengguna memilih apa yang terjadi pada kondisi sebenarnya.
+*Catatan : Model data ini berstatus draf. Developer harus meninjau dan menyesuaikannya sebelum dijalankan di Supabase.*
 
-### 3.9 Push Notifikasi dan Reminder
-
-Push notifikasi adalah pesan yang dikirim ke perangkat pengguna. Reminder adalah pengingat agar pengguna menjalankan suatu Activity pada waktunya.
-
-### 3.10 Keterkaitan Pemicu antar Activity
-
-Hubungan antar Activity dengan pola "setelah A, lanjut B" ala habit stacking, yaitu Activity berikutnya terkait dengan Activity sebelumnya. Berbeda dari urutan biasa pada timeline.
-
-## 4. Model Data (Draf)
-
-Draf ini bersifat usulan dan WAJIB ditinjau dan disesuaikan oleh developer sebelum dijalankan di Supabase.
-
-### 4.1 Tabel `routines`
+### Tabel `routines`
 
 | Kolom | Tipe | Keterangan |
-|---|---|---|
+| --- | --- | --- |
 | id | uuid | Primary key. |
 | user_id | uuid | Relasi ke `auth.users`. |
-| name | text | Wajib. |
-| kind | text | `global` atau `custom`. |
-| mode | text | `checklist` atau `non_checklist`. |
+| name | text | Wajib diisi. |
+| kind | text | Saat ini hanya `global`. |
+| mode | text | Saat ini hanya `checklist`. |
 | start_time | time | Opsional. |
-| created_at | timestamptz | Bawaan `now()`. |
+| created_at | timestamptz | Default `now()`. |
 
-Batasan: setiap pengguna hanya boleh memiliki satu Routines dengan `kind = 'global'`.
+#### Rule
 
-### 4.2 Tabel `activities`
+- Setiap pengguna hanya boleh memiliki satu Routines dengan `kind = 'global'`.
+
+### Tabel `activities`
 
 | Kolom | Tipe | Keterangan |
-|---|---|---|
+| --- | --- | --- |
 | id | uuid | Primary key. |
 | routine_id | uuid | Relasi ke `routines`. |
-| user_id | uuid | Relasi ke `auth.users`, untuk penyederhanaan kebijakan RLS. |
-| name | text | Wajib. |
-| start_time | time | Opsional. Wajib diisi pada Time Activity, divalidasi di form. |
-| is_completed | boolean | Bawaan `false`. Hanya bermakna pada mode checklist. Diubah manual oleh pengguna, tanpa reset otomatis. |
+| user_id | uuid | Relasi ke `auth.users`, untuk menyederhanakan kebijakan RLS. |
+| name | text | Wajib diisi. |
+| start_time | time | Opsional. Wajib diisi pada Time Activity dan divalidasi di form. |
+| is_completed | boolean | Default `false`. Hanya bermakna pada mode checklist. Diubah secara manual oleh pengguna. |
 | position | integer | Urutan dalam Routines. Diperbarui melalui drag-and-drop. |
-| created_at | timestamptz | Bawaan `now()`. |
+| created_at | timestamptz | Default `now()`. |
 
-## 5. Aturan Akses
+### Access Policy
 
-1. RLS WAJIB aktif pada seluruh tabel.
-2. Pengguna hanya boleh membaca, menambah, mengubah, dan menghapus baris dengan `user_id = auth.uid()`.
-3. Pengguna tanpa login tidak memiliki akses ke tabel mana pun.
-
-## 6. Struktur Halaman
-
-| Halaman | Isi |
-|---|---|
-| Login | Form login. |
-| Register | Form registrasi. |
-| Dasbor | Card Progress, timeline Global Routines, tombol Add Activity. |
-| Daftar Routines | Seluruh Routines milik pengguna, termasuk pembuatan Custom Routines. |
-| Detail Routines | Timeline dan pengelolaan Activity pada satu Routines. |
-
-## 7. Batasan Teknis
-
-1. Tech stack mengacu pada tabel di bagian atas dokumen ini. Perubahan stack WAJIB dicatat di sana.
-2. Seluruh kode frontend WAJIB mengikuti `FRONTEND_CONVENTIONS.md`.
-3. Pengerjaan dilakukan per fitur, dan fitur pada kelompok Lanjutan (Bagian 2.3) DILARANG dikerjakan sebelum ada keputusan.
-4. Dependensi baru di luar Tech stack WAJIB disetujui developer sebelum dipasang.
-5. Pengambilan data WAJIB melalui custom hook yang memanggil service.
-6. Validasi formulir WAJIB memakai fitur bawaan React Hook Form, tanpa pustaka skema tambahan.
-7. Umpan balik kepada pengguna (berhasil, galat) WAJIB memakai komponen daisyUI.
-8. Antarmuka WAJIB responsif dengan pendekatan mobile-first.
-9. Seluruh teks antarmuka WAJIB berbahasa Indonesia.
-
-## 8. Catatan Keputusan
-
-1. Card Progress menampilkan jumlah Activity selesai dibandingkan total pada Global Routines.
-2. Status selesai tidak direset otomatis dan jam mulai hanya untuk tampilan. Perubahan status dilakukan manual oleh pengguna.
-3. Riwayat penyelesaian per tanggal dan streak tidak termasuk cakupan MVP.
-4. Urutan Activity diatur dengan drag-and-drop.
-5. Global Routines dibuat otomatis saat registrasi dan awalnya kosong.
-6. `FRONTEND_CONVENTIONS.md` bersifat universal untuk ekosistem React dan tidak menyebut pustaka spesifik. Pilihan pustaka hanya dicantumkan pada Tech stack di dokumen ini.
-7. TanStack Query, Zod, react-hot-toast, dan Axios tidak dipakai pada MVP 1. Dapat dipertimbangkan kembali pada tahap berikutnya.
-8. dnd-kit dipakai untuk drag-and-drop karena fitur tersebut termasuk MVP 1 dan drag-and-drop di layar sentuh tidak didukung dengan baik oleh fitur bawaan browser.
+- RLS harus aktif pada semua tabel.
+- Pengguna hanya boleh membaca, menambah, mengubah, dan menghapus baris dengan `user_id = auth.uid()`.
+- Pengguna yang belum login tidak boleh mengakses tabel mana pun.
