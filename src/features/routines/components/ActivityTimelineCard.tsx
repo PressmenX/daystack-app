@@ -1,7 +1,6 @@
 import { Check, GripVertical } from 'lucide-react';
 import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import type { DraggableAttributes } from '@dnd-kit/core';
-import { formatDisplayTime } from '../../../common/dateUtils';
 import { UI_MESSAGES } from '../../../constants/messages';
 import type { Activity } from '../routine.types';
 
@@ -28,8 +27,6 @@ export function ActivityTimelineCard({
   onOpenDetails,
   onToggleCompletion,
 }: ActivityTimelineCardProps) {
-  const formattedTime = formatDisplayTime(activity.start_time);
-
   return (
     <div
       data-activity-card
@@ -52,26 +49,11 @@ export function ActivityTimelineCard({
         className="flex min-w-0 flex-1 items-center px-4 py-3.5 text-left focus-visible:outline-2 focus-visible:outline-brand"
       >
         <div className="min-w-0 flex-1">
-          {formattedTime || isNext ? (
+          {isNext ? (
             <div className="mb-1 flex flex-wrap items-center gap-2">
-              {formattedTime ? (
-                <span
-                  className={`text-xs font-semibold tabular-nums ${
-                    activity.is_completed
-                      ? 'text-brand/60'
-                      : isNext
-                        ? 'text-warning'
-                        : 'text-content-muted'
-                  }`}
-                >
-                  {formattedTime}
-                </span>
-              ) : null}
-              {isNext ? (
-                <span className="rounded-md bg-warning px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-warning-content">
-                  {UI_MESSAGES.DASHBOARD.NEXT_BADGE}
-                </span>
-              ) : null}
+              <span className="rounded-md bg-warning px-1.5 py-0.5 text-[10px] font-bold tracking-wide text-warning-content">
+                {UI_MESSAGES.DASHBOARD.NEXT_BADGE}
+              </span>
             </div>
           ) : null}
 
@@ -119,7 +101,7 @@ export function ActivityTimelineCard({
             }`}
           >
             {activity.is_completed ? (
-              <Check className="h-5 w-5 stroke-[3]" />
+              <Check className="h-5 w-5 stroke-3" />
             ) : null}
           </span>
         </button>
