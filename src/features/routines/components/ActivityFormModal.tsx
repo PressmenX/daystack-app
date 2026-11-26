@@ -156,31 +156,31 @@ export function ActivityFormModal({
             </>
           ) : (
             <>
-              <div className="grid grid-cols-[minmax(0,1fr)_108px_36px] gap-1.5 sm:grid-cols-[minmax(0,1fr)_120px_44px] sm:gap-2">
-                <span className="whitespace-nowrap text-xs font-semibold text-content-secondary">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="min-w-0 flex-1 whitespace-nowrap text-xs font-semibold text-content-secondary">
                   {UI_MESSAGES.ACTIVITY.NAME_LABEL}
                 </span>
                 <span
-                  className="whitespace-nowrap text-xs font-semibold text-content-secondary"
+                  className="w-24 shrink-0 whitespace-nowrap text-xs font-semibold text-content-secondary sm:w-20"
                   title={UI_MESSAGES.ACTIVITY.START_TIME_LABEL}
                 >
                   Jam Mulai
                 </span>
-                <span aria-hidden="true" />
+                <span className="w-9 shrink-0 sm:w-11" aria-hidden="true" />
               </div>
 
               <div className="space-y-2.5">
                 {fields.map((field, index) => (
                   <div
                     key={field.id}
-                    className="grid grid-cols-[minmax(0,1fr)_108px_36px] items-center gap-1.5 sm:grid-cols-[minmax(0,1fr)_120px_44px] sm:gap-2"
+                    className="flex items-center gap-1.5 sm:gap-2"
                   >
                     <input
                       id={`activity-name-${index}`}
                       type="text"
                       aria-label={`${UI_MESSAGES.ACTIVITY.NAME_LABEL} ${index + 1}`}
                       placeholder={UI_MESSAGES.ACTIVITY.NAME_PLACEHOLDER}
-                      className="input input-bordered min-h-11.5 min-w-0 w-full rounded-xl border-border bg-surface-subtle/70 px-3 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
+                      className="input input-bordered min-h-11.5 min-w-0 flex-1 rounded-xl border-border bg-surface-subtle/70 px-3 text-sm text-content focus:border-brand focus:bg-surface focus:outline-none"
                       {...register(`activities.${index}.name`, {
                         required: UI_MESSAGES.ACTIVITY.NAME_REQUIRED,
                         validate: (value) =>
@@ -191,7 +191,7 @@ export function ActivityFormModal({
                         },
                       })}
                     />
-                    <div className="relative min-w-0">
+                    <div className="relative w-24 min-w-0 shrink-0 sm:w-26">
                       <Clock className="pointer-events-none absolute left-2.5 top-1/2 z-10 h-3.5 w-3.5 -translate-y-1/2 text-content-disabled sm:left-3 sm:h-4 sm:w-4" />
                       <input
                         id={`activity-start-time-${index}`}
@@ -203,7 +203,7 @@ export function ActivityFormModal({
                     </div>
                     <button
                       type="button"
-                      className="flex h-11 w-9 items-center justify-center rounded-xl text-danger hover:bg-danger-soft disabled:cursor-not-allowed disabled:opacity-40 sm:h-11 sm:w-11"
+                      className="flex h-11 w-9 shrink-0 items-center justify-center rounded-xl text-danger hover:bg-danger-soft disabled:cursor-not-allowed disabled:opacity-40 sm:h-11 sm:w-11"
                       onClick={() => {
                         if (fields.length > 1) {
                           remove(index);
